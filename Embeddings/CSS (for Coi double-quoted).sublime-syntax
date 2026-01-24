@@ -1,0 +1,42 @@
+%YAML 1.2
+---
+# A special syntax definition to drive double quoted inline style attributes
+# with {...} interpolation support
+scope: source.css.embedded.coi.double-quoted
+version: 2
+hidden: true
+
+extends: Packages/CSS/CSS.sublime-syntax
+
+contexts:
+
+  main:
+    - include: rule-list-body
+
+  prototype:
+    - meta_prepend: true
+    - include: scope:source.coi#text-interpolations
+      apply_prototype: true
+
+  string-content:
+    - meta_prepend: true
+    - include: scope:source.coi#string-interpolations
+      apply_prototype: true
+
+  quoted-strings:
+    - meta_prepend: true
+    - match: (?=")
+      pop: 1
+
+  quoted-string:
+    - meta_prepend: true
+    - match: (?=")
+      pop: 1
+
+  quoted-urls:
+    - meta_prepend: true
+    - match: (?=")
+      pop: 1
+
+variables:
+  ident_start: (?:{{nmstart}}|{)

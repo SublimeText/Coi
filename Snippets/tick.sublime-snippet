@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[
+tick (int ${1:dt}) {
+	$0
+}
+]]></content>
+	<tabTrigger>tick</tabTrigger>
+	<scope>source.coi - (meta.event.body | comment | string | source), source.coi meta.event.coi</scope>
+	<description>tick block</description>
+</snippet>

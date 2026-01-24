@@ -1,0 +1,47 @@
+// SYNTAX TEST "Coi.sublime-syntax"
+
+type MyType
+//   @@@@@@ definition
+
+component MyComponent {
+//        @@@@@@@@@@@ definition
+
+    enum MyEnum {
+//       @@@@@@ definition
+        Foo,
+//      @@@ definition
+        Bar,
+//      @@@ definition
+    }
+
+    def my_function(int arg) : MyType {
+//      @@@@@@@@@@@ definition
+//                             @@@@@@ reference
+
+        if (arg == MyEnum::Foo) {
+//          @@@ reference
+//                 @@@@@@ reference
+//                         @@@ reference
+            arg = MyEnum::Bar;
+//          @@@ reference
+//                @@@@@@ reference
+//                        @@@ reference
+        } else {
+            my_function(MyEnum::Bar);
+//          @@@@@@@@@@@ reference
+//                      @@@@@@ reference
+//                              @@@ reference
+        }
+    }
+
+    view {
+        <MyComponent onclick={my_function(+1)}/>
+//       @@@@@@@@@@@ reference
+//                            @@@@@@@@@@@ reference
+    }
+}
+
+app {
+    root = MyComponent;
+//         @@@@@@@@@@@ reference
+}

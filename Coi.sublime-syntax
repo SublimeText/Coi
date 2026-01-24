@@ -1,0 +1,793 @@
+%YAML 1.2
+---
+# https://www.sublimetext.com/docs/syntax.html
+# https://github.com/io-eric/coi
+name: Coi
+scope: source.coi
+version: 2
+
+file_extensions:
+  - coi
+
+contexts:
+
+  prototype:
+    - include: comments
+    - include: merge-conflict-markers
+
+  main:
+    - include: statements
+
+  statements:
+    - include: app-definitions
+    - include: component-definitions
+    - include: computed-definitions
+    - include: enum-definitions
+    - include: event-definitions
+    - include: function-definitions
+    - include: router-definitions
+    - include: style-definitions
+    - include: type-definitions
+    - include: view-definitions
+    - include: keywords
+    - include: blocks
+    - include: expressions
+
+  expressions:
+    - include: annotations
+    - include: components
+    - include: function-calls
+    - include: arrays
+    - include: groups
+    - include: operators
+    - include: constants
+    - include: numbers
+    - include: strings
+    - include: modifiers
+    - include: builtin-types
+    - include: variables
+
+###[ COMMENTS ]################################################################
+
+  comments:
+    - match: //+
+      scope: punctuation.definition.comment.coi
+      push: line-comment-body
+
+  line-comment-body:
+    - meta_include_prototype: false
+    - meta_scope: comment.line.double-slash.coi
+    - match: (?:(//+)\s*)?$\n?
+      captures:
+        1: punctuation.definition.comment.coi
+      pop: 1
+
+###[ MERGE CONFLICT MARKERS ]##################################################
+
+  merge-conflict-markers:
+    # note: required until ST4200
+    # see also: Diff.sublime-syntax#conflict-markers
+    - match: ^(<{7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.begin.diff
+      captures:
+        1: punctuation.section.block.begin.diff
+        2: entity.name.section.diff
+    - match: ^(>{7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.end.diff
+      captures:
+        1: punctuation.section.block.end.diff
+        2: entity.name.section.diff
+    - match: ^(\|{7}|={7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.separator.diff
+      captures:
+        1: punctuation.section.block.diff
+        2: entity.name.section.diff
+
+###[ APP DEFINITIONS ]#########################################################
+
+  app-definitions:
+    - match: app\b
+      scope: meta.app.coi keyword.declaration.app.coi
+      push: app-block
+
+  app-block:
+    - meta_content_scope: meta.app.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: app-block-body
+    - include: else-pop
+
+  app-block-body:
+    - meta_scope: meta.app.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - match: routes\b
+      scope: meta.router.coi variable.parameter.coi
+      push: app-routes-assignment
+    - match: (?:description|lang|root|title)\b
+      scope: variable.parameter.coi
+    - include: text-interpolations
+    - include: annotations
+    - include: components
+    - include: constants
+    - include: numbers
+    - include: operators
+    - include: strings
+
+  app-routes-assignment:
+    - meta_content_scope: meta.router.coi
+    - match: =
+      scope: keyword.operator.assignment.coi
+    - include: router-block
+
+###[ COMPONENT DEFINITIONS ]###################################################
+
+  component-definitions:
+    - match: component\b
+      scope: meta.component.coi keyword.declaration.component.coi
+      push: component-name
+
+  component-name:
+    - meta_content_scope: meta.component.coi
+    - match: '{{component_name}}'
+      scope: meta.component.identifier.coi entity.name.class.component.coi
+      set: component-parameter-list
+    - include: component-parameter-list
+
+  component-parameter-list:
+    - meta_content_scope: meta.component.coi
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      set:
+        - component-parameter-list-body
+        - function-parameter-name
+        - function-parameter-type
+    - include: component-block
+
+  component-parameter-list-body:
+    - meta_scope: meta.component.parameters.coi meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      set: component-block
+    - include: function-parameter-list-content
+
+  component-block:
+    - meta_content_scope: meta.component.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: component-block-body
+    - include: else-pop
+
+  component-block-body:
+    - meta_scope: meta.component.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ ENUM DEFINITIONS ]########################################################
+
+  enum-definitions:
+    - match: enum\b
+      scope: meta.enum.coi keyword.declaration.enum.coi
+      push: enum-name
+
+  enum-name:
+    - meta_content_scope: meta.enum.coi
+    - match: '{{component_name}}'
+      scope: meta.enum.identifier.coi entity.name.enum.coi
+      set: enum-block
+    - include: enum-block
+
+  enum-block:
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: enum-block-body
+    - include: else-pop
+
+  enum-block-body:
+    - meta_scope: meta.enum.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - match: '{{reserved}}'
+      scope: invalid.illegal.keyword.coi
+    - match: '{{variable_name}}'
+      scope: entity.name.constant.coi
+    - include: operators
+
+###[ COMPUTED DEFINITIONS ]####################################################
+
+  computed-definitions:
+    - match: computed\b
+      scope: meta.computed.coi keyword.declaration.computed.coi
+      push: computed-name
+
+  computed-name:
+    - meta_content_scope: meta.computed.coi
+    - match: '{{identifier}}'
+      scope: meta.computed.identifier.coi entity.name.property.coi
+      set: computed-parameter-list
+    - include: computed-parameter-list
+
+  computed-parameter-list:
+    - meta_content_scope: meta.computed.coi
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      set:
+        - computed-parameter-list-body
+        - function-parameter-name
+        - function-parameter-type
+    - include: computed-return-type
+
+  computed-parameter-list-body:
+    - meta_scope: meta.computed.parameters.coi meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      set: computed-return-type
+    - include: function-parameter-list-content
+
+  computed-return-type:
+    - meta_content_scope: meta.computed.coi
+    - match: ':'
+      scope: meta.computed.coi punctuation.separator.type.coi
+      set: computed-type-body
+    - include: computed-block
+
+  computed-type-body:
+    - meta_content_scope: meta.computed.type.coi
+    - include: builtin-types
+    - include: user-types
+    - include: computed-block
+
+  computed-block:
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: computed-block-body
+    - include: else-pop
+
+  computed-block-body:
+    - meta_scope: meta.computed.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ EVENT DEFINITIONS ]#######################################################
+
+  event-definitions:
+    - match: (?:init|mount|prop|tick)\b
+      scope: meta.event.coi keyword.control.event.coi
+      push: event-parameter-list
+
+  event-parameter-list:
+    - meta_content_scope: meta.event.coi
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      set:
+        - event-parameter-list-body
+        - function-parameter-name
+        - function-parameter-type
+    - include: event-block
+
+  event-parameter-list-body:
+    - meta_scope: meta.event.parameters.coi meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      set: event-block
+    - include: function-parameter-list-content
+
+  event-block:
+    - meta_content_scope: meta.event.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: event-block-body
+    - include: else-pop
+
+  event-block-body:
+    - meta_scope: meta.event.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ FUNCTION DEFINITIONS ]####################################################
+
+  function-definitions:
+    - match: def\b
+      scope: meta.function.coi keyword.declaration.function.coi
+      push: function-name
+
+  function-name:
+    - meta_content_scope: meta.function.coi
+    - match: '{{identifier}}'
+      scope: meta.function.identifier.coi entity.name.function.coi
+      set: function-parameter-list
+    - include: function-parameter-list
+
+  function-parameter-list:
+    - meta_content_scope: meta.function.coi
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      set:
+        - function-parameter-list-body
+        - function-parameter-name
+        - function-parameter-type
+    - include: function-return-type
+
+  function-parameter-list-body:
+    - meta_scope: meta.function.parameters.coi meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      set: function-return-type
+    - include: function-parameter-list-content
+
+  function-parameter-list-content:
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+      push:
+        - function-parameter-name
+        - function-parameter-type
+    - match: ':'
+      scope: punctuation.separator.return-type
+      push: function-parameter-return-type
+    - include: expressions
+
+  function-parameter-name:
+    - match: '{{identifier}}'
+      scope: variable.parameter.coi
+      pop: 1
+    - match: '&'
+      scope: keyword.operator.reference.coi
+    - include: else-pop
+
+  function-parameter-type:
+    - match: def\b
+      scope: storage.type.function.coi
+      pop: 1
+    - include: modifiers
+    - include: function-parameter-return-type
+
+  function-parameter-return-type:
+    - match: '{{type}}'
+      scope: storage.type.coi
+      set: type-dimension
+    - match: '{{identifier}}'
+      scope: support.type.coi
+      set: type-dimension
+    - include: annotations
+    - include: else-pop
+
+  function-return-type:
+    - meta_content_scope: meta.function.coi
+    - match: ':'
+      scope: meta.function.coi punctuation.separator.return-type
+      set: function-return-type-body
+    - include: function-block
+
+  function-return-type-body:
+    - meta_content_scope: meta.function.return-type.coi
+    - include: builtin-types
+    - include: user-types
+    - include: function-block
+
+  function-block:
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: function-block-body
+    - include: else-pop
+
+  function-block-body:
+    - meta_scope: meta.function.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ ROUTER DEFINITIONS ]######################################################
+
+  router-definitions:
+    - match: router\b
+      scope: meta.router.coi keyword.declaration.router.coi
+      push: router-block
+
+  router-block:
+    - meta_content_scope: meta.router.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: router-block-body
+    - include: else-pop
+
+  router-block-body:
+    - meta_scope: meta.router.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: components
+    - include: operators
+    - include: strings
+
+###[ STYLE DEFINITIONS ]#######################################################
+
+  style-definitions:
+    - match: style\b
+      scope: meta.style.coi keyword.declaration.style.coi
+      push: style-block
+
+  style-block:
+    - meta_content_scope: meta.style.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: style-block-body
+    - match: global\b
+      scope: storage.modifier.global.coi
+    - include: else-pop
+
+  style-block-body:
+    - meta_scope: meta.style.body.coi meta.block.coi
+    - meta_content_scope: source.css.embedded.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: scope:source.css
+      apply_prototype: true
+
+###[ VIEW DEFINITIONS ]########################################################
+
+  view-definitions:
+    - match: view\b
+      scope: meta.view.coi keyword.declaration.view.coi
+      push: view-block
+
+  view-block:
+    - meta_content_scope: meta.view.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: view-block-body
+    - include: else-pop
+
+  view-block-body:
+    - meta_scope: meta.view.body.coi meta.block.coi
+    - meta_content_scope: text.html.embedded.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: scope:text.html.embedded.coi
+      apply_prototype: true
+
+###[ TYPE DEFINITIONS ]########################################################
+
+  type-definitions:
+    - match: type\b
+      scope: meta.type.coi keyword.declaration.type.coi
+      push: type-name
+
+  type-name:
+    - meta_content_scope: meta.type.coi
+    - match: '{{identifier}}'
+      scope: meta.type.identifier.coi entity.name.type.coi
+      set: type-parameter
+    - include: type-parameter
+
+  type-parameter:
+    - meta_content_scope: meta.type.coi
+    - match: \<
+      scope: punctuation.defintition.generic.begin.coi
+      set: type-parameter-body
+    - include: type-block
+
+  type-parameter-body:
+    - meta_scope: meta.type.parameter.coi meta.generic.coi
+    - match: \>
+      scope: punctuation.defintition.generic.end.coi
+      set: type-block
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+    - match: '{{identifier}}'
+      scope: variable.parameter.type.coi
+    - include: else-pop
+
+  type-block:
+    - meta_content_scope: meta.type.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: type-block-body
+    - include: else-pop
+
+  type-block-body:
+    - meta_scope: meta.type.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ BLOCKS ]##################################################################
+
+  blocks:
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      push: block-body
+
+  block-body:
+    - meta_scope: meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
+###[ CONTROL KEYWORDS ]########################################################
+
+  keywords:
+    # import
+    - match: import\b
+      scope: keyword.control.import.coi
+    # conditionals
+    - match: if\b
+      scope: keyword.control.conditional.if.coi
+    - match: else\b
+      scope: keyword.control.conditional.else.coi
+    # loops
+    - match: for\b
+      scope: keyword.control.loop.for.coi
+    - match: while\b
+      scope: keyword.control.loop.while.coi
+    # flow
+    - match: return\b
+      scope: keyword.control.flow.return.coi
+    # other
+    - match: (?:key|route|struct)\b
+      scope: keyword.other.coi
+
+###[ INTERPOLATIONS ]##########################################################
+
+  text-interpolations:
+    - match: \{
+      scope: punctuation.section.interpolation.begin.coi
+      push: text-interpolation-body
+
+  text-interpolation-body:
+    - meta_scope: meta.interpolation.coi
+    - meta_content_scope: source.coi.embedded.coi
+    - match: \}
+      scope: punctuation.section.interpolation.end.coi
+      pop: 1
+    - include: expressions
+
+  string-interpolations:
+    - match: \{
+      scope: punctuation.section.interpolation.begin.coi
+      push: string-interpolation-body
+
+  string-interpolation-body:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.coi
+    - meta_content_scope: source.coi.embedded.coi
+    - include: text-interpolation-body
+
+###[ ARRAYS ]##################################################################
+
+  arrays:
+    - match: \[
+      scope: punctuation.section.sequence.begin.coi
+      push: array-body
+
+  array-body:
+    - meta_scope: meta.sequence.array.coi
+    - match: \]
+      scope: punctuation.section.sequence.end.coi
+      pop: 1
+    - include: expressions
+
+###[ GROUPS ]##################################################################
+
+  groups:
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      push: group-body
+
+  group-body:
+    - meta_scope: meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      pop: 1
+    - include: expressions
+
+###[ COMPONENTS ]##############################################################
+
+  components:
+    - match: (({{component_name}})\s*)(\()
+      captures:
+        1: meta.instantiation.identifier.coi
+        2: support.class.component.coi
+        3: meta.instantiation.arguments.coi punctuation.section.arguments.begin.coi
+      push: component-argument-list-body
+    - match: '{{component_name}}'
+      scope: support.class.component.coi
+
+  component-argument-list-body:
+    - meta_content_scope: meta.instantiation.arguments.coi
+    - match: \)
+      scope: meta.instantiation.arguments.coi punctuation.section.arguments.end.coi
+      pop: 1
+    - include: expressions
+
+###[ FUNCTION CALLS ]##########################################################
+
+  function-calls:
+    - match: (((?!{{reserved}}){{variable_name}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.coi
+        2: variable.function.coi
+        3: meta.function-call.arguments.coi punctuation.section.arguments.begin.coi
+      push: function-argument-list-body
+
+  function-argument-list-body:
+    - meta_content_scope: meta.function-call.arguments.coi
+    - match: \)
+      scope: meta.function-call.arguments.coi punctuation.section.arguments.end.coi
+      pop: 1
+    - include: expressions
+
+###[ OPERATORS ]###############################################################
+
+  annotations:
+    - match: (@)(alias|builtin|inline|intrinsic|map|nocopy)\b
+      scope: meta.annotation.coi
+      captures:
+        1: punctuation.definition.annotation.coi
+        2: variable.annotation.coi
+
+  operators:
+    - match: in\b
+      scope: keyword.control.loop.in.coi
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+    - match: ;
+      scope: punctuation.terminator.statemant.coi
+    - match: '::'
+      scope: punctuation.accessor.double-colon.coi
+      push: static-member
+    - match: \.
+      scope: punctuation.accessor.dot.coi
+    - match: '[-+*/%]='
+      scope: keyword.operator.assignment.augmented.coi
+    - match: \+\+?|--?|[*/%]
+      scope: keyword.operator.arithmetic.coi
+    - match: \&\&|\|\||!
+      scope: keyword.operator.logical.coi
+    - match: '[<>]=?|=='
+      scope: keyword.operator.comparison.coi
+    - match: =>
+      scope: keyword.operator.arrow.coi
+    - match: =
+      scope: keyword.operator.assignment.coi
+    - match: :=
+      scope: keyword.operator.move.coi
+    - match: ':'
+      scope: punctuation.separator.range.coi
+    - match: '&'
+      scope: keyword.operator.reference.coi
+    - match: \?
+      scope: keyword.operator.ternary.coi
+      push: ternary-body
+
+  static-member:
+    - match: '{{component_name}}'
+      scope: constant.other.enum.coi
+      pop: 1
+    - include: else-pop
+
+  ternary-body:
+    - match: ':'
+      scope: keyword.operator.ternary.coi
+      pop: 1
+    - include: expressions
+
+###[ LITERALS ]################################################################
+
+  constants:
+    - match: false\b
+      scope: constant.language.boolean.false.coi
+    - match: true\b
+      scope: constant.language.boolean.true.coi
+
+  numbers:
+    - match: \d+\.\d*
+      scope: meta.number.float.decimal.coi constant.numeric.value.coi
+    - match: \d+
+      scope: meta.number.float.integer.coi constant.numeric.value.coi
+
+  strings:
+    - match: \"
+      scope: punctuation.definition.string.begin.coi
+      push: string-body
+
+  string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.coi string.quoted.double.coi
+    - match: \"
+      scope: punctuation.definition.string.end.coi
+      pop: 1
+    - match: \\.
+      scope: constant.character.escape.coi
+    - include: merge-conflict-markers
+
+###[ TYPES ]###################################################################
+
+  modifiers:
+    - match: extends\b
+      scope: storage.modifier.extends.coi
+    - match: global\b
+      scope: storage.modifier.global.coi
+    - match: '{{modifier}}'
+      scope: storage.modifier.coi
+
+  builtin-types:
+    - match: '{{type}}'
+      scope: storage.type.coi
+      push: type-dimension
+
+  user-types:
+    - match: '{{identifier}}'
+      scope: support.type.coi
+      push: type-dimension
+
+  type-dimension:
+    - match: \[
+      scope: punctuation.section.dimension.begin.coi
+      push: type-dimension-body
+    - include: else-pop
+
+  type-dimension-body:
+    - meta_scope: meta.dimension.coi
+    - match: \]
+      scope: punctuation.section.dimension.end.coi
+      pop: 1
+    - include: expressions
+
+###[ VARIABLES ]###############################################################
+
+  variables:
+    - match: '{{variable_name}}(?=(?:\[.*\])?\.)'
+      scope: variable.other.object.coi
+      push: variable-subscript
+    - match: '{{variable_name}}'
+      scope: variable.other.coi
+      push: variable-subscript
+
+  variable-subscript:
+    - match: \[
+      scope: punctuation.section.subscript.begin.coi
+      push: variable-subscript-body
+    - include: else-pop
+
+  variable-subscript-body:
+    - meta_scope: meta.subscript.coi
+    - match: \]
+      scope: punctuation.section.subscript.end.coi
+      pop: 1
+    - include: expressions
+
+###[ PROTOTYPES ]##############################################################
+
+  else-pop:
+    - match: (?=\S)
+      pop: 1
+
+###############################################################################
+
+variables:
+  identifier: (?!{{reserved}}){{variable_name}}
+  component_name: '[A-Z][A-Za-z0-9_]*\b'
+  variable_name: '[a-zA-Z_][a-zA-Z0-9_]*\b'
+
+  reserved: (?:{{keyword}}|{{modifier}}|{{type}})
+  keyword: |-
+    (?x: def | view | return | if | else | for | while | computed | tick | init
+    | mount | app | import | struct | style | type | global | in | root | extends
+    | enum | key | router | route )\b
+  modifier: |-
+    (?x: mut | pub | shared )\b
+  type: |-
+    (?x: bool | float(?:32 | 64)? | u?int(?:8 | 16 | 32 | 64)? | string | void )\b

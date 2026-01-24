@@ -1,0 +1,11 @@
+{
+	"scope": "source.coi - source.coi text.html - source.coi source.css - meta.app - comment - string",
+	"completions": [
+		// annotation
+		{ "trigger": "@alias", "kind": ["markup", "a", "annotation"], "details": " " },
+		{ "trigger": "@builtin", "kind": ["markup", "a", "annotation"], "details": " " },
+		{ "trigger": "@intrinsic", "kind": ["markup", "a", "annotation"], "details": " " },
+		{ "trigger": "@map", "kind": ["markup", "a", "annotation"], "details": " " },
+		{ "trigger": "@nocopy", "kind": ["markup", "a", "annotation"], "details": " " },
+	]
+}

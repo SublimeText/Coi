@@ -1,0 +1,6 @@
+<snippet>
+	<content><![CDATA[<else>$0</else>]]></content>
+	<tabTrigger>else</tabTrigger>
+	<scope>text.html.embedded.coi - text.html source - text.html meta.tag - text.html comment - text.html string</scope>
+	<description><![CDATA[<else></else>]]></description>
+</snippet>

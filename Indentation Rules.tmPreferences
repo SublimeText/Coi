@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>source.coi</string>
+	<key>settings</key>
+	<dict>
+		<key>bracketIndentNextLinePattern</key>
+		<string><![CDATA[(?x)
+			^\s*(?:if|else|for|while)\b[^;{]*$
+		]]></string>
+		<key>decreaseIndentPattern</key>
+		<string>^\s*[)\]}]</string>
+		<key>increaseIndentPattern</key>
+		<string><![CDATA[(?x)
+			# any text
+			^.*
+			# followed by opening bracket
+			[(\[{]
+			# optionally followed by comment
+			\s* (?://.*)? $
+		]]></string>
+		<key>indentParens</key>
+		<false/>
+		<key>indentSquareBrackets</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

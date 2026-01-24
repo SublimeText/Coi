@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+app {
+	root = ${1:App};
+	title = "${2:My App}";
+	description = "${3:description text}";
+	lang = "${4:en}";
+}
+]]></content>
+	<tabTrigger>app</tabTrigger>
+	<scope>source.coi - (meta | comment | string | source), source.coi meta.app.coi</scope>
+	<description>app description</description>
+</snippet>

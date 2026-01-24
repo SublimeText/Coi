@@ -1,0 +1,9 @@
+{
+	"scope": "source.coi - meta.block - comment - string",
+	"completions": [
+		{ "trigger": "app", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "component", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "def", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "import", "kind": ["keyword", "k", "Control"], "details": " " },
+	]
+}

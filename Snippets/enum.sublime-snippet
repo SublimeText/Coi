@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[
+enum ${1:EnumName} {
+	${0:Const},
+}
+]]></content>
+	<tabTrigger>enum</tabTrigger>
+	<scope>source.coi - (meta.enum.body | comment | string | source), source.coi meta.enum.coi</scope>
+	<description>enum block</description>
+</snippet>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>scope</key>
+    <string>source.coi</string>
+    <key>settings</key>
+    <dict>
+        <key>indentationFoldingEnabled</key>
+        <true/>
+        <key>foldScopes</key>
+        <array>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.definition.generic.begin</string>
+                <key>end</key>
+                <string>punctuation.definition.generic.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.app.body punctuation.section.block.begin</string>
+                <key>end</key>
+                <string>meta.app.body punctuation.section.block.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.component.body punctuation.section.block.begin - meta.component meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.component.body punctuation.section.block.end - meta.component meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.computed.body punctuation.section.block.begin - meta.computed meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.computed.body punctuation.section.block.end - meta.computed meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.enum.body punctuation.section.block.begin - meta.enum meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.enum.body punctuation.section.block.end - meta.enum meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.event.body punctuation.section.block.begin - meta.event meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.event.body punctuation.section.block.end - meta.event meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.function.body punctuation.section.block.begin - meta.function meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.function.body punctuation.section.block.end - meta.function meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.router.body punctuation.section.block.begin - meta.router meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.router.body punctuation.section.block.end - meta.router meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.style.body punctuation.section.block.begin - meta.style meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.style.body punctuation.section.block.end - meta.style meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.type.body punctuation.section.block.begin - meta.type meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.type.body punctuation.section.block.end - meta.type meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.view.body punctuation.section.block.begin - meta.view meta.block meta.block</string>
+                <key>end</key>
+                <string>meta.view.body punctuation.section.block.end - meta.view meta.block meta.block</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.block.begin</string>
+                <key>end</key>
+                <string>punctuation.section.block.end</string>
+                <key>excludeTrailingNewlines</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.arguments.begin</string>
+                <key>end</key>
+                <string>punctuation.section.arguments.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.dimension.begin</string>
+                <key>end</key>
+                <string>punctuation.section.dimension.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.interpolation.begin</string>
+                <key>end</key>
+                <string>punctuation.section.interpolation.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.parameters.begin</string>
+                <key>end</key>
+                <string>punctuation.section.parameters.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.sequence.begin</string>
+                <key>end</key>
+                <string>punctuation.section.sequence.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>punctuation.section.subscript.begin</string>
+                <key>end</key>
+                <string>punctuation.section.subscript.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+</dict>
+</plist>

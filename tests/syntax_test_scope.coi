@@ -1,0 +1,1003 @@
+// SYNTAX TEST "Coi.sublime-syntax"
+
+/// [ COMMENTS ] //////////////////////////////////////////////////////////////
+
+// component
+// <- comment.line.double-slash.coi punctuation.definition.comment.coi
+//^^^^^^^^^^^ comment.line.double-slash.coi - punctuation
+
+/// [ ANNOTATIONS ] ///////////////////////////////////////////////////////////
+
+    @nocopy
+//  ^^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^^^^ variable.annotation.coi - punctuation
+
+    @builtin
+//  ^^^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^^^^^ variable.annotation.coi - punctuation
+
+    @inline
+//  ^^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^^^^ variable.annotation.coi - punctuation
+
+    @map
+//  ^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^ variable.annotation.coi - punctuation
+
+    @intrinsic
+//  ^^^^^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^^^^^^^ variable.annotation.coi - punctuation
+
+    @alias
+//  ^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi - variable
+//   ^^^^^ variable.annotation.coi - punctuation
+
+    @other
+//  ^^^^^^ - meta.annotation.coi
+//   ^^^^^ variable.other.coi
+
+/// [ CONSTANTS ] /////////////////////////////////////////////////////////////
+
+    true false
+//  ^^^^ constant.language.boolean.true.coi
+//       ^^^^^ constant.language.boolean.false.coi
+
+    10 +10 -10
+//  ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//     ^ keyword.operator.arithmetic.coi
+//      ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//         ^ keyword.operator.arithmetic.coi
+//          ^^ meta.number.float.integer.coi constant.numeric.value.coi
+
+    1.0 +1.0 -1.0
+//  ^^^ meta.number.float.decimal.coi constant.numeric.value.coi
+//      ^ keyword.operator.arithmetic.coi
+//       ^^^ meta.number.float.decimal.coi constant.numeric.value.coi
+//           ^ keyword.operator.arithmetic.coi
+//            ^^^ meta.number.float.decimal.coi constant.numeric.value.coi
+
+    // single-line strings
+
+    "string \""
+//  ^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//          ^^ constant.character.escape.coi
+//            ^ punctuation.definition.string.end.coi
+
+    // multi-line strings
+
+    "component Counter \{
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//                     ^^ constant.character.escape.coi
+        mut int count = 0;
+
+        def increment() : void \{
+            count++;
+        \}
+//^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//      ^^ constant.character.escape.coi
+
+        view \{
+            <div class=\"counter\">
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//                     ^^ constant.character.escape.coi
+//                              ^^ constant.character.escape.coi
+            </div>
+        \}
+//^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//      ^^ constant.character.escape.coi
+    \}";
+//^^^^^ meta.string.coi string.quoted.double.coi
+//  ^^ constant.character.escape.coi
+//    ^ punctuation.definition.string.end.coi
+//     ^ punctuation.terminator.statemant.coi
+
+/// [ OPERATORS ] /////////////////////////////////////////////////////////////
+
+    , ; . ::
+//  ^ punctuation.separator.sequence.coi
+//    ^ punctuation.terminator.statemant.coi
+//      ^ punctuation.accessor.dot.coi
+//        ^^ punctuation.accessor.double-colon.coi
+
+    += -= *= /= *=
+//  ^^ keyword.operator.assignment.augmented.coi
+//     ^^ keyword.operator.assignment.augmented.coi
+//        ^^ keyword.operator.assignment.augmented.coi
+//           ^^ keyword.operator.assignment.augmented.coi
+//              ^^ keyword.operator.assignment.augmented.coi
+
+    ++ + -- - * / %
+//  ^^ keyword.operator.arithmetic.coi
+//     ^ keyword.operator.arithmetic.coi
+//       ^^ keyword.operator.arithmetic.coi
+//          ^ keyword.operator.arithmetic.coi
+//            ^ keyword.operator.arithmetic.coi
+//              ^ keyword.operator.arithmetic.coi
+//                ^ keyword.operator.arithmetic.coi
+
+    > >= == <= <
+//  ^ keyword.operator.comparison.coi
+//    ^^ keyword.operator.comparison.coi
+//       ^^ keyword.operator.comparison.coi
+//          ^^ keyword.operator.comparison.coi
+//             ^ keyword.operator.comparison.coi
+
+    && ||
+//  ^^ keyword.operator.logical.coi
+//     ^^ keyword.operator.logical.coi
+
+    &
+//  ^ keyword.operator.reference.coi
+
+    :=
+//  ^^ keyword.operator.move.coi
+
+    =>
+//  ^^ keyword.operator.arrow.coi
+
+    ? :
+//  ^ keyword.operator.ternary.coi
+//    ^ keyword.operator.ternary.coi
+
+    // Basic ternary
+    x > y ? x : y;
+//        ^ keyword.operator.ternary.coi
+//            ^ keyword.operator.ternary.coi
+
+    // Nested ternary
+    n > 0 ? "positive" : n < 0 ? "negative" : "zero";
+//        ^ keyword.operator.ternary.coi
+//                     ^ keyword.operator.ternary.coi
+//                             ^ keyword.operator.ternary.coi
+//                                          ^ keyword.operator.ternary.coi
+
+/// [ BASIC TYPES ] ///////////////////////////////////////////////////////////
+
+    mut pub shared
+//  ^^^ storage.modifier.coi
+//      ^^^ storage.modifier.coi
+//          ^^^^^^ storage.modifier.coi
+
+    bool string void
+//  ^^^^ storage.type.coi
+//       ^^^^^^ storage.type.coi
+//              ^^^^ storage.type.coi
+
+    float float32 float64
+//  ^^^^^ storage.type.coi
+//        ^^^^^^^ storage.type.coi
+//                ^^^^^^^ storage.type.coi
+
+    int int8 int16 int32 int64
+//  ^^^ storage.type.coi
+//      ^^^^ storage.type.coi
+//           ^^^^^ storage.type.coi
+//                 ^^^^^ storage.type.coi
+//                       ^^^^^ storage.type.coi
+
+    uint uint8 uint16 uint32 uint64
+//  ^^^^ storage.type.coi
+//       ^^^^^ storage.type.coi
+//             ^^^^^^ storage.type.coi
+//                    ^^^^^^ storage.type.coi
+//                           ^^^^^^ storage.type.coi
+
+    uint[] uint[8][4]
+//  ^^^^ storage.type.coi
+//      ^^ meta.dimension.coi
+//      ^ punctuation.section.dimension.begin.coi
+//       ^ punctuation.section.dimension.end.coi
+//         ^^^^ storage.type.coi
+//             ^^^^^^ meta.dimension.coi
+//             ^ punctuation.section.dimension.begin.coi
+//              ^ meta.number.float.integer.coi constant.numeric.value.coi
+//               ^ punctuation.section.dimension.end.coi
+//                ^ punctuation.section.dimension.begin.coi
+//                 ^ meta.number.float.integer.coi constant.numeric.value.coi
+//                  ^ punctuation.section.dimension.end.coi
+
+/// [ VARIABLES ] /////////////////////////////////////////////////////////////
+
+    MyComponent
+//  ^^^^^^^^^^^ support.class.component.coi
+
+    var_iable2
+//  ^^^^^^^^^^ variable.other.coi
+
+    var[10][20].attr[5]
+//  ^^^ variable.other.object.coi
+//     ^^^^^^^^ meta.subscript.coi
+//     ^ punctuation.section.subscript.begin.coi
+//      ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//        ^ punctuation.section.subscript.end.coi
+//         ^ punctuation.section.subscript.begin.coi
+//          ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//            ^ punctuation.section.subscript.end.coi
+//             ^ punctuation.accessor.dot.coi
+//              ^^^^ variable.other.coi
+//                  ^^^ meta.subscript.coi
+//                  ^ punctuation.section.subscript.begin.coi
+//                   ^ meta.number.float.integer.coi constant.numeric.value.coi
+//                    ^ punctuation.section.subscript.end.coi
+
+
+/// [ CONTROL STATEMENTS ] ////////////////////////////////////////////////////
+
+    import "component.coi"
+//  ^^^^^^ keyword.control.import.coi
+//         ^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+
+    key
+//  ^^^ keyword.other.coi
+
+    route
+//  ^^^^^ keyword.other.coi
+
+    struct
+//  ^^^^^^ keyword.other.coi
+
+    if (x > 10) {
+//  ^^ keyword.control.conditional.if.coi
+//     ^^^^^^^^ meta.group.coi
+//     ^ punctuation.section.group.begin.coi
+//      ^ variable.other.coi
+//        ^ keyword.operator.comparison.coi
+//          ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//            ^ punctuation.section.group.end.coi
+//              ^^ meta.block.coi
+//              ^ punctuation.section.block.begin.coi
+        message = "big";
+    } else {
+//^^^ meta.block.coi
+//   ^^^^^^ - meta.block
+//         ^^ meta.block.coi
+//  ^ punctuation.section.block.end.coi
+//    ^^^^ keyword.control.conditional.else.coi
+//         ^ punctuation.section.block.begin.coi
+        message = "small";
+    }
+//^^^ meta.block.coi
+//  ^ punctuation.section.block.end.coi
+
+    // Range-based (start:end)
+    for i in 0:10 { sum += i; }
+//  ^^^ keyword.control.loop.for.coi
+//      ^ variable.other.coi
+//        ^^ keyword.control.loop.in.coi
+//           ^ meta.number.float.integer.coi constant.numeric.value.coi
+//            ^ punctuation.separator.range.coi
+//             ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                ^^^^^^^^^^^^^ meta.block.coi
+//                ^ punctuation.section.block.begin.coi
+//                  ^^^ variable.other.coi
+//                      ^^ keyword.operator.assignment.augmented.coi
+//                         ^ variable.other.coi
+//                          ^ punctuation.terminator.statemant.coi
+//                            ^ punctuation.section.block.end.coi
+
+    for (i in 0:10) { sum += i; }
+//  ^^^ keyword.control.loop.for.coi
+//      ^^^^^^^^^^^ meta.group.coi
+//      ^ punctuation.section.group.begin.coi
+//       ^ variable.other.coi
+//         ^^ keyword.control.loop.in.coi
+//            ^ meta.number.float.integer.coi constant.numeric.value.coi
+//             ^ punctuation.separator.range.coi
+//              ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                ^ punctuation.section.group.end.coi
+//                  ^^^^^^^^^^^^^ meta.block.coi
+//                  ^ punctuation.section.block.begin.coi
+//                    ^^^ variable.other.coi
+//                        ^^ keyword.operator.assignment.augmented.coi
+//                           ^ variable.other.coi
+//                            ^ punctuation.terminator.statemant.coi
+//                              ^ punctuation.section.block.end.coi
+
+    // ForEach (Arrays)
+    for score in scores { total += score; }
+//  ^^^ keyword.control.loop.for.coi
+//      ^^^^^ variable.other.coi
+//            ^^ keyword.control.loop.in.coi
+//               ^^^^^^ variable.other.coi
+//                      ^^^^^^^^^^^^^^^^^^^ meta.block.coi
+//                      ^ punctuation.section.block.begin.coi
+//                        ^^^^^ variable.other.coi
+//                              ^^ keyword.operator.assignment.augmented.coi
+//                                 ^^^^^ variable.other.coi
+//                                      ^ punctuation.terminator.statemant.coi
+//                                        ^ punctuation.section.block.end.coi
+
+    while i < 10 i++;
+//  ^^^^^ keyword.control.loop.while.coi
+//        ^ variable.other.coi
+//          ^ keyword.operator.comparison.coi
+//            ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//               ^ variable.other.coi
+//                ^^ keyword.operator.arithmetic.coi
+//                  ^ punctuation.terminator.statemant.coi
+
+/// [ APP DEFINITIONS ] ///////////////////////////////////////////////////////
+
+app {
+//^^ meta.app.coi
+//^ keyword.declaration.app.coi
+//  ^^ meta.app.body.coi meta.block.coi
+//  ^ punctuation.section.block.begin.coi
+
+    root = App;                            // Required: Root component
+//^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^ variable.parameter.coi
+//       ^ keyword.operator.assignment.coi
+//         ^^^ support.class.component.coi
+//            ^ punctuation.terminator.statemant.coi
+
+    title = "My Counter App";              // Page title (<title> tag)
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^^ variable.parameter.coi
+//        ^ keyword.operator.assignment.coi
+//          ^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//          ^ punctuation.definition.string.begin.coi
+//                         ^ punctuation.definition.string.end.coi
+//                          ^ punctuation.terminator.statemant.coi
+
+    description = "A description for SEO"; // Meta description
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^^^^^^^^ variable.parameter.coi
+//              ^ keyword.operator.assignment.coi
+//                ^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//                ^ punctuation.definition.string.begin.coi
+//                                      ^ punctuation.definition.string.end.coi
+//                                       ^ punctuation.terminator.statemant.coi
+
+    lang = "en";                           // HTML lang attribute (default: "en")
+//^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^ variable.parameter.coi
+//       ^ keyword.operator.assignment.coi
+//         ^^^^ meta.string.coi string.quoted.double.coi
+//         ^ punctuation.definition.string.begin.coi
+//            ^ punctuation.definition.string.end.coi
+//             ^ punctuation.terminator.statemant.coi
+
+    routes = { "/" => HomeComponent }      // Maps URL paths to components for client-side routing
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^^^^^^ meta.router.coi
+//  ^^^^^^ variable.parameter.coi
+//         ^ keyword.operator.assignment.coi
+//           ^^^^^^^^^^^^^^^^^^^^^^^^ meta.router.body.coi meta.block.coi
+//           ^ punctuation.section.block.begin.coi
+//             ^^^ meta.string.coi string.quoted.double.coi
+//             ^ punctuation.definition.string.begin.coi
+//               ^ punctuation.definition.string.end.coi
+//                 ^^ keyword.operator.arrow.coi
+//                    ^^^^^^^^^^^^^ support.class.component.coi
+//                                  ^ punctuation.section.block.end.coi
+
+    while = 5
+//^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
+//  ^^^^^ - keyword - variable
+//        ^ keyword.operator.assignment.coi
+//          ^ meta.number.float.integer.coi constant.numeric.value.coi
+}
+// <- meta.app.body.coi meta.block.coi punctuation.section.block.end.coi
+ // <- - meta
+
+/// [ COMPONENT DEFINITIONS ] /////////////////////////////////////////////////
+
+component MyComponent(string label, mut int& value, def onclick : void) {
+//^^^^^^^^ meta.component.coi
+//^^^^^^^ keyword.declaration.component.coi
+//        ^^^^^^^^^^^ meta.component.identifier.coi entity.name.class.component.coi
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.component.parameters.coi meta.group.coi
+//                   ^ punctuation.section.group.begin.coi
+//                    ^^^^^^ storage.type.coi
+//                           ^^^^^ variable.parameter.coi
+//                                ^ punctuation.separator.sequence.coi
+//                                  ^^^ storage.modifier.coi
+//                                      ^^^ storage.type.coi
+//                                         ^ keyword.operator.reference.coi
+//                                           ^^^^^ variable.parameter.coi
+//                                                ^ punctuation.separator.sequence.coi
+//                                                  ^^^ storage.type.function.coi
+//                                                      ^^^^^^^ variable.parameter.coi
+//                                                              ^ punctuation.separator.return-type
+//                                                                ^^^^ storage.type.coi
+//                                                                    ^ punctuation.section.group.end.coi
+//                                                                     ^ meta.component.coi
+//                                                                      ^^ meta.component.body.coi meta.block.coi
+//                                                                      ^ punctuation.section.block.begin.coi
+
+    component NestedComponent {
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.component.body.coi meta.block.coi
+//  ^^^^^^^^^^ meta.component.coi
+//  ^^^^^^^^^ keyword.declaration.component.coi
+//            ^^^^^^^^^^^^^^^ meta.component.identifier.coi entity.name.class.component.coi
+//                           ^ meta.component.coi
+//                            ^^ meta.component.body.coi meta.block.coi
+//                            ^ punctuation.section.block.begin.coi
+
+    }
+//^^^^ meta.component.body.coi meta.block.coi
+//^^^ meta.component.body.coi meta.block.coi
+//  ^ punctuation.section.block.end.coi
+}
+// <- meta.component.body.coi meta.block.coi punctuation.section.block.end.coi
+ // <- - meta
+
+/// [ COMPUTED PROPERTY DEFINITIONS ] /////////////////////////////////////////
+
+computed property(string arg): int[] { "The " + arg }
+//^^^^^^^ meta.computed.coi
+//^^^^^^ keyword.declaration.computed.coi
+//       ^^^^^^^^ meta.computed.identifier.coi entity.name.property.coi
+//               ^^^^^^^^^^^^ meta.computed.parameters.coi meta.group.coi
+//               ^ punctuation.section.group.begin.coi
+//                ^^^^^^ storage.type.coi
+//                       ^^^ variable.parameter.coi
+//                          ^ punctuation.section.group.end.coi
+//                           ^ meta.computed.coi punctuation.separator.type.coi
+//                            ^^^^^^^ meta.computed.type.coi
+//                             ^^^ storage.type.coi
+//                                ^^ meta.dimension.coi
+//                                ^ punctuation.section.dimension.begin.coi
+//                                 ^ punctuation.section.dimension.end.coi
+//                                   ^^^^^^^^^^^^^^^^ meta.computed.body.coi meta.block.coi
+//                                   ^ punctuation.section.block.begin.coi
+//                                     ^^^^^^ meta.string.coi string.quoted.double.coi
+//                                     ^ punctuation.definition.string.begin.coi
+//                                          ^ punctuation.definition.string.end.coi
+//                                            ^ keyword.operator.arithmetic.coi
+//                                              ^^^ variable.other.coi
+//                                                  ^ punctuation.section.block.end.coi
+
+/// [ COMPONENT DEFINITIONS ] /////////////////////////////////////////////////
+
+enum
+// <- meta.enum.coi keyword.declaration.enum.coi
+//^^^ meta.enum.coi
+//^^ keyword.declaration.enum.coi
+
+enum Mode
+// <- meta.enum.coi keyword.declaration.enum.coi
+//^^^ meta.enum.coi
+//^^ keyword.declaration.enum.coi
+//   ^^^^ meta.enum.identifier.coi entity.name.enum.coi
+
+enum Mode {
+// <- meta.enum.coi keyword.declaration.enum.coi
+//^^^ meta.enum.coi
+//^^ keyword.declaration.enum.coi
+//   ^^^^ meta.enum.identifier.coi entity.name.enum.coi
+//        ^^ meta.enum.body.coi meta.block.coi
+//        ^ punctuation.section.block.begin.coi
+    Idle,
+//^^^^^^^^ meta.enum.body.coi meta.block.coi
+//  ^^^^ entity.name.constant.coi
+//      ^ punctuation.separator.sequence.coi
+    Running,
+//^^^^^^^^^^^ meta.enum.body.coi meta.block.coi
+//  ^^^^^^^ entity.name.constant.coi
+//         ^ punctuation.separator.sequence.coi
+    enum
+//^^^^^^^ meta.enum.body.coi meta.block.coi
+//  ^^^^ invalid.illegal.keyword.coi
+}
+// <- meta.enum.body.coi meta.block.coi punctuation.section.block.end.coi
+ // <- - meta
+
+state = Mode::Idle;
+//^^^ variable.other.coi
+//    ^ keyword.operator.assignment.coi
+//      ^^^^ support.class.component.coi
+//          ^^ punctuation.accessor.double-colon.coi
+//            ^^^^ constant.other.enum.coi
+//                ^ punctuation.terminator.statemant.coi
+
+/// [ FUNCTION DEFINITIONS ] //////////////////////////////////////////////////
+
+def
+// <- meta.function.coi keyword.declaration.function.coi
+//^^ meta.function.coi
+//^ keyword.declaration.function.coi
+
+def funcName
+// <- meta.function.coi keyword.declaration.function.coi
+//^^ meta.function.coi
+//^ keyword.declaration.function.coi
+//  ^^^^^^^^ meta.function.identifier.coi entity.name.function.coi
+//          ^ meta.function.coi
+
+def funcName(string arg, int[] count = 10): string {  }
+// <- meta.function.coi keyword.declaration.function.coi
+//^^ meta.function.coi
+//^ keyword.declaration.function.coi
+//  ^^^^^^^^ meta.function.identifier.coi entity.name.function.coi
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^ punctuation.section.group.begin.coi
+//           ^^^^^^ storage.type.coi
+//                  ^^^ variable.parameter.coi
+//                     ^ punctuation.separator.sequence.coi
+//                       ^^^ storage.type.coi
+//                          ^^ meta.dimension.coi
+//                          ^ punctuation.section.dimension.begin.coi
+//                           ^ punctuation.section.dimension.end.coi
+//                             ^^^^^ variable.parameter.coi
+//                                   ^ keyword.operator.assignment.coi
+//                                     ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                       ^ punctuation.section.group.end.coi
+//                                        ^ meta.function.coi punctuation.separator.return-type
+//                                         ^^^^^^^^ meta.function.return-type.coi
+//                                          ^^^^^^ storage.type.coi
+//                                                 ^^^^ meta.function.body.coi meta.block.coi
+//                                                 ^ punctuation.section.block.begin.coi
+//                                                    ^ punctuation.section.block.end.coi
+
+/// [ ROUTER DEFINITIONS ]/////////////////////////////////////////////////////
+
+router {
+// <- meta.router.coi keyword.declaration.router.coi
+//^^^^^ meta.router.coi
+//^^^^ keyword.declaration.router.coi
+//     ^^ meta.router.body.coi meta.block.coi
+//     ^ punctuation.section.block.begin.coi
+
+    "/" => Home,
+//^^^^^^^^^^^^^^^ meta.router.body.coi meta.block.coi
+//  ^^^ meta.string.coi string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//    ^ punctuation.definition.string.end.coi
+//      ^^ keyword.operator.arrow.coi
+//         ^^^^ support.class.component.coi
+//             ^ punctuation.separator.sequence.coi
+    "/about" => About,
+//^^^^^^^^^^^^^^^^^^^^^ meta.router.body.coi meta.block.coi
+//  ^^^^^^^^ meta.string.coi string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//         ^ punctuation.definition.string.end.coi
+//           ^^ keyword.operator.arrow.coi
+//              ^^^^^ support.class.component.coi
+//                   ^ punctuation.separator.sequence.coi
+    "/dashboard" => Dashboard(label="MyLabel")
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.router.body.coi meta.block.coi
+//  ^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//             ^ punctuation.definition.string.end.coi
+//               ^^ keyword.operator.arrow.coi
+//                  ^^^^^^^^^ meta.instantiation.identifier.coi support.class.component.coi
+//                           ^^^^^^^^^^^^^^^^^ meta.instantiation.arguments.coi
+//                           ^ punctuation.section.arguments.begin.coi
+//                            ^^^^^ variable.other.coi
+//                                 ^ keyword.operator.assignment.coi
+//                                  ^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//                                  ^ punctuation.definition.string.begin.coi
+//                                          ^ punctuation.definition.string.end.coi
+//                                           ^ punctuation.section.arguments.end.coi
+}
+
+/// [ TYPE DEFINITIONS ] //////////////////////////////////////////////////////
+
+type
+// <- meta.type.coi keyword.declaration.type.coi
+//^^ meta.type.coi keyword.declaration.type.coi
+
+type my_type
+//^^^ meta.type.coi
+//^^ keyword.declaration.type.coi
+//   ^^^^^^^ meta.type.identifier.coi entity.name.type.coi
+//          ^ meta.type.coi
+
+type MyType
+//^^^ meta.type.coi
+//^^ keyword.declaration.type.coi
+//   ^^^^^^ meta.type.identifier.coi entity.name.type.coi
+//         ^ meta.type.coi
+
+// Dynamic array (T[]) - maps to webcc::vector<T>
+@builtin
+type array<T> {
+//^^^ meta.type.coi
+//^^ keyword.declaration.type.coi
+//   ^^^^^ meta.type.identifier.coi entity.name.type.coi
+//        ^^^ meta.type.parameter.coi meta.generic.coi
+//        ^ punctuation.defintition.generic.begin.coi
+//         ^ variable.parameter.type.coi
+//          ^ punctuation.defintition.generic.end.coi
+//           ^ meta.type.coi
+//            ^^ meta.type.body.coi meta.block.coi
+//            ^ punctuation.section.block.begin.coi
+    @inline("${this}.push_back(${0})")
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi
+//  ^^^^^^^ meta.annotation.coi
+//  ^ punctuation.definition.annotation.coi
+//   ^^^^^^ variable.annotation.coi
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coi
+//         ^ punctuation.section.group.begin.coi
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
+//          ^ punctuation.definition.string.begin.coi
+//                                  ^ punctuation.definition.string.end.coi
+//                                   ^ punctuation.section.group.end.coi
+    def push(T value): void
+//^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi
+//  ^^^^ meta.function.coi
+//  ^^^ keyword.declaration.function.coi
+//      ^^^^ meta.function.identifier.coi entity.name.function.coi
+//          ^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^ punctuation.section.group.begin.coi
+//           ^ support.type.coi
+//             ^^^^^ variable.parameter.coi
+//                  ^ punctuation.section.group.end.coi
+//                   ^ meta.function.coi punctuation.separator.return-type
+//                    ^^^^^^ meta.function.return-type.coi
+//                     ^^^^ storage.type.coi
+
+    def appl(mut T& value = "", int count = 4, def cb : T): void
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi
+//^^ meta.function.return-type.coi
+//  ^^^^ meta.function.coi
+//  ^^^ keyword.declaration.function.coi
+//      ^^^^ meta.function.identifier.coi entity.name.function.coi
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^ punctuation.section.group.begin.coi
+//           ^^^ storage.modifier.coi
+//               ^ support.type.coi
+//                ^ keyword.operator.reference.coi
+//                  ^^^^^ variable.parameter.coi
+//                        ^ keyword.operator.assignment.coi
+//                          ^^ meta.string.coi string.quoted.double.coi
+//                          ^ punctuation.definition.string.begin.coi
+//                           ^ punctuation.definition.string.end.coi
+//                            ^ punctuation.separator.sequence.coi
+//                              ^^^ storage.type.coi
+//                                  ^^^^^ variable.parameter.coi
+//                                        ^ keyword.operator.assignment.coi
+//                                          ^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                           ^ punctuation.separator.sequence.coi
+//                                             ^^^ storage.type.function.coi
+//                                                 ^^ variable.parameter.coi
+//                                                    ^ punctuation.separator.return-type
+//                                                      ^ support.type.coi
+//                                                       ^ punctuation.section.group.end.coi
+//                                                        ^ meta.function.coi punctuation.separator.return-type
+//                                                         ^^^^^^ meta.function.return-type.coi
+//                                                          ^^^^ storage.type.coi
+}
+// <- meta.type.body.coi meta.block.coi punctuation.section.block.end.coi
+
+/// [ EVENT BLOCKS ] //////////////////////////////////////////////////////////
+
+init {  }
+// <- meta.event.coi keyword.control.event.coi
+//^^^ meta.event.coi
+//^^ keyword.control.event.coi
+//   ^^^^ meta.event.body.coi meta.block.coi
+//   ^ punctuation.section.block.begin.coi
+//      ^ punctuation.section.block.end.coi
+
+mount {  }
+// <- meta.event.coi keyword.control.event.coi
+//^^^^ meta.event.coi
+//^^^ keyword.control.event.coi
+//    ^^^^ meta.event.body.coi meta.block.coi
+//    ^ punctuation.section.block.begin.coi
+//       ^ punctuation.section.block.end.coi
+
+prop { var = "value" }
+//^^^ meta.event.coi
+//^^ keyword.control.event.coi
+//   ^^^^^^^^^^^^^^^^^ meta.event.body.coi meta.block.coi
+//   ^ punctuation.section.block.begin.coi
+//     ^^^ variable.other.coi
+//         ^ keyword.operator.assignment.coi
+//           ^^^^^^^ meta.string.coi string.quoted.double.coi
+//           ^ punctuation.definition.string.begin.coi
+//                 ^ punctuation.definition.string.end.coi
+//                   ^ punctuation.section.block.end.coi
+
+tick { update() }
+// <- meta.event.coi keyword.control.event.coi
+//^^^ meta.event.coi
+//^^ keyword.control.event.coi
+//   ^^^^^^^^^^^^ meta.event.body.coi meta.block.coi
+//   ^ punctuation.section.block.begin.coi
+//     ^^^^^^ meta.function-call.identifier.coi variable.function.coi
+//           ^^ meta.function-call.arguments.coi
+//           ^ punctuation.section.arguments.begin.coi
+//            ^ punctuation.section.arguments.end.coi
+//              ^ punctuation.section.block.end.coi
+
+tick(float dt) { x += dt * 200; }
+// <- meta.event.coi keyword.control.event.coi
+//^^ meta.event.coi keyword.control.event.coi
+//  ^^^^^^^^^^ meta.event.parameters.coi meta.group.coi
+//  ^ punctuation.section.group.begin.coi
+//   ^^^^^ storage.type.coi
+//         ^^ variable.parameter.coi
+//           ^ punctuation.section.group.end.coi
+//            ^ meta.event.coi
+//             ^^^^^^^^^^^^^^^^^^ meta.event.body.coi meta.block.coi
+//             ^ punctuation.section.block.begin.coi
+//               ^ variable.other.coi
+//                 ^^ keyword.operator.assignment.augmented.coi
+//                    ^^ variable.other.coi
+//                       ^ keyword.operator.arithmetic.coi
+//                         ^^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                            ^ punctuation.terminator.statemant.coi
+//                              ^ punctuation.section.block.end.coi
+
+/// [ STYLE BLOCKS ] //////////////////////////////////////////////////////////
+
+style
+// <- meta.style.coi keyword.declaration.style.coi
+//^^^^ meta.style.coi
+//^^^ keyword.declaration.style.coi
+
+style { tr { color: red } }
+// <- meta.style.coi keyword.declaration.style.coi
+//^^^^ meta.style.coi
+//    ^ meta.style.body.coi meta.block.coi - source.css
+//     ^^^^^^^^^^^^^^^^^^^ meta.style.body.coi meta.block.coi source.css.embedded.coi
+//                        ^ meta.style.body.coi meta.block.coi - source.css
+//                         ^ - meta.style
+//^^^ keyword.declaration.style.coi
+//    ^ punctuation.section.block.begin.coi
+//      ^^^ meta.selector.css
+//      ^^ entity.name.tag.html.css
+//         ^^^^^^^^^^^^^^ meta.property-list.css meta.block.css
+//         ^ punctuation.section.block.begin.css
+//           ^^^^^ meta.property-name.css support.type.property-name.css
+//                ^ punctuation.separator.key-value.css
+//                 ^^^^^ meta.property-value.css
+//                  ^^^ support.constant.color.w3c.standard.css
+//                      ^ punctuation.section.block.end.css
+//                        ^ punctuation.section.block.end.coi
+
+style global
+// <- meta.style.coi keyword.declaration.style.coi
+//^^^^^^^^^^^ meta.style.coi
+//^^^ keyword.declaration.style.coi
+//    ^^^^^^ storage.modifier.global.coi
+
+style global {  }
+// <- meta.style.coi keyword.declaration.style.coi
+//^^^^^^^^^^^ meta.style.coi
+//           ^ meta.style.body.coi meta.block.coi - source.css
+//            ^^ meta.style.body.coi meta.block.coi source.css.embedded.coi
+//              ^ meta.style.body.coi meta.block.coi - source.css
+//               ^ - meta.style
+//^^^ keyword.declaration.style.coi
+//    ^^^^^^ storage.modifier.global.coi
+//           ^ punctuation.section.block.begin.coi
+//              ^ punctuation.section.block.end.coi
+
+// verify fallback
+    global
+//  ^^^^^^ storage.modifier.global.coi
+
+/// [ VIEW BLOCKS ] ///////////////////////////////////////////////////////////
+
+view {
+// <- meta.view.coi keyword.declaration.view.coi
+//^^^ meta.view.coi
+//^^ keyword.declaration.view.coi
+//   ^ meta.view.body.coi meta.block.coi punctuation.section.block.begin.coi - text.html
+//    ^ meta.view.body.coi meta.block.coi text.html.embedded.coi - punctuation
+
+    <h1 class={class} style="width: {progress}%">{"The " + tilte}</h1>
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.view.body.coi meta.block.coi text.html.embedded.coi
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.block.any.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^ entity.name.tag.block.any.html
+//      ^^^^^^^^^^^^^ meta.attribute-with-value.class.html
+//      ^^^^^ entity.other.attribute-name.class.html
+//           ^ punctuation.separator.key-value.html
+//            ^^^^^^^ meta.class-name.html meta.string.html meta.interpolation.coi
+//            ^ punctuation.section.interpolation.begin.coi
+//             ^^^^^ variable.other.coi
+//                  ^ punctuation.section.interpolation.end.coi
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.style.html
+//                    ^^^^^ entity.other.attribute-name.style.html
+//                         ^ punctuation.separator.key-value.html
+//                          ^^^^^^^^^^^^^^^^^^^^ meta.string.html
+//                          ^ string.quoted.double.html punctuation.definition.string.begin.html
+//                           ^^^^^^^^^^^^^^^^^^ source.css.embedded.html
+//                           ^^^^^ meta.property-name.css support.type.property-name.css
+//                                ^ punctuation.separator.key-value.css
+//                                 ^^^^^^^^^^^^ meta.property-value.css
+//                                  ^^^^^^^^^^ meta.interpolation.coi
+//                                  ^ punctuation.section.interpolation.begin.coi
+//                                   ^^^^^^^^ variable.other.coi
+//                                           ^ punctuation.section.interpolation.end.coi
+//                                             ^ string.quoted.double.html punctuation.definition.string.end.html
+//                                              ^ punctuation.definition.tag.end.html
+//                                               ^^^^^^^^^^^^^^^^ meta.interpolation.coi
+//                                               ^ punctuation.section.interpolation.begin.coi
+//                                                ^^^^^^ meta.string.coi string.quoted.double.coi
+//                                                ^ punctuation.definition.string.begin.coi
+//                                                     ^ punctuation.definition.string.end.coi
+//                                                       ^ keyword.operator.arithmetic.coi
+//                                                         ^^^^^ variable.other.coi
+//                                                              ^ punctuation.section.interpolation.end.coi
+//                                                               ^^^^^ meta.tag.block.any.html
+//                                                               ^^ punctuation.definition.tag.begin.html
+//                                                                 ^^ entity.name.tag.block.any.html
+//                                                                   ^ punctuation.definition.tag.end.html
+
+    // conditional statements
+
+    <if (var == getValue()) || (var < 100 && var > 100)>
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.control.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^ keyword.control.conditional.if.coi
+//      ^^^^^^^^^^^^^^^^^^^ meta.group.coi
+//      ^ punctuation.section.group.begin.coi
+//       ^^^ variable.other.coi
+//           ^^ keyword.operator.comparison.coi
+//              ^^^^^^^^ meta.function-call.identifier.coi variable.function.coi
+//                      ^^ meta.function-call.arguments.coi
+//                      ^ punctuation.section.arguments.begin.coi
+//                       ^ punctuation.section.arguments.end.coi
+//                        ^ punctuation.section.group.end.coi
+//                          ^^ keyword.operator.logical.coi
+//                             ^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coi
+//                             ^ punctuation.section.group.begin.coi
+//                              ^^^ variable.other.coi
+//                                  ^ keyword.operator.comparison.coi
+//                                    ^^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                        ^^ keyword.operator.logical.coi
+//                                           ^^^ variable.other.coi
+//                                               ^ keyword.operator.comparison.coi
+//                                                 ^^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                                    ^ punctuation.section.group.end.coi
+//                                                     ^ punctuation.definition.tag.end.html
+
+    <else>
+//  ^^^^^^ meta.tag.control.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^ keyword.control.conditional.if.coi
+//       ^ punctuation.definition.tag.end.html
+
+    </else>
+//  ^^^^^^^ meta.tag.control.html
+//  ^^ punctuation.definition.tag.begin.html
+//    ^^^^ keyword.control.conditional.if.coi
+//        ^ punctuation.definition.tag.end.html
+
+    </if>
+//  ^^^^^ meta.tag.control.html
+//  ^^ punctuation.definition.tag.begin.html
+//    ^^ keyword.control.conditional.if.coi
+//      ^ punctuation.definition.tag.end.html
+
+    // for loop statements
+
+     <for todo in todos key={todo.id}>
+//   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.control.html
+//   ^ punctuation.definition.tag.begin.html
+//    ^^^ keyword.control.loop.for.coi
+//        ^^^^ variable.other.coi
+//             ^^ keyword.control.loop.in.coi
+//                ^^^^^ variable.other.coi
+//                      ^^^^^^^^^^^^^ meta.attribute-with-value.html
+//                      ^^^ entity.other.attribute-name.html
+//                         ^ punctuation.separator.key-value.html
+//                          ^^^^^^^^^ meta.string.html meta.interpolation.coi
+//                          ^ punctuation.section.interpolation.begin.coi
+//                           ^^^^ variable.other.object.coi
+//                               ^ punctuation.accessor.dot.coi
+//                                ^^ variable.other.coi
+//                                  ^ punctuation.section.interpolation.end.coi
+//                                   ^ punctuation.definition.tag.end.html
+         <{todo} />
+//       ^^^^^^^^^^ meta.tag.other.html
+//       ^ punctuation.definition.tag.begin.html
+//        ^^^^^^ entity.name.tag.other.html meta.interpolation.coi
+//        ^ punctuation.section.interpolation.begin.coi
+//         ^^^^ variable.other.coi
+//             ^ punctuation.section.interpolation.end.coi
+//               ^^ punctuation.definition.tag.end.html
+     </for>
+//   ^^^^^^ meta.tag.control.html
+//   ^^ punctuation.definition.tag.begin.html
+//     ^^^ keyword.control.loop.for.coi
+//        ^ punctuation.definition.tag.end.html
+
+    // component references
+
+    <Header title="My {appName}" />
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^ entity.name.tag.component.html
+//          ^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.html
+//          ^^^^^ entity.other.attribute-name.html
+//               ^ punctuation.separator.key-value.html
+//                ^^^^^^^^^^^^^^ meta.string.html
+//                ^^^^ string.quoted.double.html
+//                ^ punctuation.definition.string.begin.html
+//                    ^^^^^^^^^ meta.interpolation.coi
+//                    ^ punctuation.section.interpolation.begin.coi
+//                     ^^^^^^^ variable.other.coi
+//                            ^ punctuation.section.interpolation.end.coi
+//                             ^ string.quoted.double.html punctuation.definition.string.end.html
+//                               ^^ punctuation.definition.tag.end.html
+
+    <Content />
+//  ^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^^ entity.name.tag.component.html
+//           ^^ punctuation.definition.tag.end.html
+
+    // Value props (copied)
+    <Button label="Click me" size={24} />
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.view.body.coi meta.block.coi text.html.embedded.coi
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^ entity.name.tag.component.html
+//          ^^^^^^^^^^^^^^^^ meta.attribute-with-value.html
+//          ^^^^^ entity.other.attribute-name.html
+//               ^ punctuation.separator.key-value.html
+//                ^^^^^^^^^^ meta.string.html string.quoted.double.html
+//                ^ punctuation.definition.string.begin.html
+//                         ^ punctuation.definition.string.end.html
+//                           ^^^^^^^^^ meta.attribute-with-value.html
+//                           ^^^^ entity.other.attribute-name.html
+//                               ^ punctuation.separator.key-value.html
+//                                ^^^^ meta.string.html meta.interpolation.coi
+//                                ^ punctuation.section.interpolation.begin.coi
+//                                 ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                   ^ punctuation.section.interpolation.end.coi
+//                                     ^^ punctuation.definition.tag.end.html
+
+    // Reference props (two-way binding with &)
+    <Counter &count={score} />
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^^ entity.name.tag.component.html
+//           ^ keyword.operator.reference.coi
+//            ^^^^^^^^^^^^^ meta.attribute-with-value.html
+//            ^^^^^ entity.other.attribute-name.html
+//                 ^ punctuation.separator.key-value.html
+//                  ^^^^^^^ meta.string.html meta.interpolation.coi
+//                  ^ punctuation.section.interpolation.begin.coi
+//                   ^^^^^ variable.other.coi
+//                        ^ punctuation.section.interpolation.end.coi
+//                          ^^ punctuation.definition.tag.end.html
+
+    // Move props (transfer ownership with :)
+    <Consumer :data={text} />
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^^^ entity.name.tag.component.html
+//            ^ keyword.operator.move.coi
+//             ^^^^^^^^^^^ meta.attribute-with-value.html
+//             ^^^^ entity.other.attribute-name.html
+//                 ^ punctuation.separator.key-value.html
+//                  ^^^^^^ meta.string.html meta.interpolation.coi
+//                  ^ punctuation.section.interpolation.begin.coi
+//                   ^^^^ variable.other.coi
+//                       ^ punctuation.section.interpolation.end.coi
+//                         ^^ punctuation.definition.tag.end.html
+
+    // Callback props
+    <ListItem &onRemove={handleRemove} />
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^^^ entity.name.tag.component.html
+//            ^ keyword.operator.reference.coi
+//             ^^^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.html
+//             ^^^^^^^^ entity.other.attribute-name.html
+//                     ^ punctuation.separator.key-value.html
+//                      ^^^^^^^^^^^^^^ meta.string.html meta.interpolation.coi
+//                      ^ punctuation.section.interpolation.begin.coi
+//                       ^^^^^^^^^^^^ variable.other.coi
+//                                   ^ punctuation.section.interpolation.end.coi
+//                                     ^^ punctuation.definition.tag.end.html
+
+}
+// <- meta.view.body.coi meta.block.coi punctuation.section.block.end.coi - text.html

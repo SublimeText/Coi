@@ -1,0 +1,32 @@
+component AudioPlayer {
+    mut Audio audio;
+    mut bool playing = false;
+    mut float currentTime = 0;
+    mut float duration = 0;
+    mut float progress = 0;
+
+    def togglePlay() : void {
+        if (playing) audio.pause(); else audio.play();
+        playing = !playing;
+    }
+
+    view {
+        <div class="progress" style="width:{progress}%"></div>
+        <div class="time">
+            <span>{currentTime}s</span>
+            <span>{duration}s</span>
+        </div>
+        <button onclick={togglePlay}>
+            <if playing><span>⏸</span>
+            <else><span>▶</span></else>
+            </if>
+        </button>
+    }
+}
+
+app {
+    root = App;
+    title = "My Player App";
+    description = "A simple audio player built with Coi";
+    lang = "en";
+}

@@ -1,0 +1,16 @@
+{
+	"scope": "source.coi meta.component.body - source.coi meta.component.body meta.block meta.block - comment - string",
+	"completions": [
+		// definition keywords
+		{ "trigger": "component", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "computed", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "def", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "style", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "view", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		// events
+		{ "trigger": "init", "kind": ["function", "e", "Events"], "details": " " },
+		{ "trigger": "mount", "kind": ["function", "e", "Events"], "details": " " },
+		{ "trigger": "prop", "kind": ["function", "e", "Events"], "details": " " },
+		{ "trigger": "tick", "kind": ["function", "e", "Events"], "details": " " },
+	]
+}

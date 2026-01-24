@@ -1,0 +1,145 @@
+%YAML 1.2
+---
+scope: text.html.embedded.coi
+version: 2
+hidden: true
+
+extends: Packages/HTML/HTML.sublime-syntax
+
+contexts:
+
+###[ MERGE CONFLICT MARKERS ]#################################################
+
+  merge-conflict-markers:
+    # note: required until ST4200
+    # see also: Diff.sublime-syntax#conflict-markers
+    - match: ^(<{7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.begin.diff
+      captures:
+        1: punctuation.section.block.begin.diff
+        2: entity.name.section.diff
+    - match: ^(>{7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.end.diff
+      captures:
+        1: punctuation.section.block.end.diff
+        2: entity.name.section.diff
+    - match: ^(\|{7}|={7})(?:\s+(\S.*?))?$\n?
+      scope: meta.block.conflict.separator.diff
+      captures:
+        1: punctuation.section.block.diff
+        2: entity.name.section.diff
+
+###[ HTML EXTENSIONS ]#########################################################
+
+  tag-html:
+    - meta_prepend: true
+    - include: coi-tags
+
+  prototype:
+    - meta_prepend: true
+    - include: scope:source.coi#text-interpolations
+      apply_prototype: true
+
+  cdata-content:
+    - meta_prepend: true
+    - include: scope:source.coi#string-interpolations
+      apply_prototype: true
+
+  tag-style-attribute-value:
+    - meta_include_prototype: false
+    - match: \"
+      scope: meta.string.html string.quoted.double.html punctuation.definition.string.begin.html
+      set: tag-style-attribute-double-quoted-value
+    - match: \'
+      scope: meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
+      set: tag-style-attribute-single-quoted-value
+    - include: else-pop
+
+  tag-style-attribute-double-quoted-value:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.string.html source.css.embedded.html
+    - match: \"
+      scope: meta.string.html string.quoted.double.html punctuation.definition.string.end.html
+      pop: 1
+    - include: scope:source.css.embedded.coi.double-quoted
+      apply_prototype: true
+
+  tag-style-attribute-single-quoted-value:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.string.html source.css.embedded.html
+    - match: \'
+      scope: meta.string.html string.quoted.single.html punctuation.definition.string.end.html
+      pop: 1
+    - include: scope:source.css.embedded.coi.single-quoted
+      apply_prototype: true
+
+  tag-attribute-value-content:
+    - meta_prepend: true
+    - include: scope:source.coi#string-interpolations
+      apply_prototype: true
+
+  strings-common-content:
+    - meta_prepend: true
+    - include: scope:source.coi#string-interpolations
+      apply_prototype: true
+
+###[ CONTROL TAGS ]#############################################################
+
+  coi-tags:
+    - match: (</?)({{component_name}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.component.html
+      push: coi-component-tag-content
+    - match: (</?)(if{{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: keyword.control.conditional.if.coi
+      push: coi-any-tag-content
+    - match: (</?)(else{{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: keyword.control.conditional.if.coi
+      push: coi-any-tag-content
+    - match: (</?)(for{{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: keyword.control.loop.for.coi
+      push: coi-for-tag-content
+
+  coi-component-tag-content:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.component.html
+    - include: merge-conflict-markers
+    - include: tag-end-maybe-self-closing
+    - match: ':'
+      scope: keyword.operator.move.coi
+    - match: '&'
+      scope: keyword.operator.reference.coi
+    - include: tag-attributes
+
+  coi-for-tag-content:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.control.html
+    - match: in\b
+      scope: keyword.control.loop.in.coi
+    - match: key{{attribute_name_break}}
+      scope: entity.other.attribute-name.html
+      push:
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-assignment
+    - include: coi-any-tag-content
+
+  coi-any-tag-content:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.control.html
+    - include: merge-conflict-markers
+    - include: tag-end-maybe-self-closing
+    - include: scope:source.coi#expressions
+
+###############################################################################
+
+variables:
+  # make `{` a valid tag name start sequence
+  tag_name_start: (?:[A-Za-z]|{)
+  component_name: '[A-Z][A-Za-z0-9_]*{{tag_name_break}}'

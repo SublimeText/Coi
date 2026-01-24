@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+component ${1:ComponentName}${2:(${3:int} ${4:arg})} {
+	$0
+
+	style \{
+		${5:/* component css */}
+	\}
+
+	view \{
+		${6:// component view}
+	\}
+}
+]]></content>
+	<tabTrigger>component</tabTrigger>
+	<scope>source.coi - (meta | comment | string | source), source.coi meta.component.coi</scope>
+	<description>component</description>
+</snippet>

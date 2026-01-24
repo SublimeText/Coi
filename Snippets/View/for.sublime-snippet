@@ -1,0 +1,6 @@
+<snippet>
+	<content><![CDATA[<for ${1:var} in ${2:list} ${3:key=\{${1:var}.${5:id}\}}>$0</for>]]></content>
+	<tabTrigger>for</tabTrigger>
+	<scope>text.html.embedded.coi - text.html source - text.html meta.tag - text.html comment - text.html string</scope>
+	<description><![CDATA[<for var in list></for>]]></description>
+</snippet>

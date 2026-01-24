@@ -1,0 +1,7 @@
+{
+	"scope": "source.coi - source.coi text.html - source.coi source.css - comment - string",
+	"completions": [
+		{ "trigger": "false", "kind": ["variable", "c", "Constant"], "details": " " },
+		{ "trigger": "true", "kind": ["variable", "c", "Constant"], "details": " " },
+	]
+}

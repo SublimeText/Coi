@@ -1,0 +1,25 @@
+{
+	"scope": "source.coi - source.coi text.html - source.coi source.css - meta.app - comment - string",
+	"completions": [
+		// modifieres
+		{ "trigger": "mut", "kind": ["type", "m", "Modifier"], "details": " " },
+		{ "trigger": "pub", "kind": ["type", "m", "Modifier"], "details": " " },
+		{ "trigger": "shared", "kind": ["type", "m", "Modifier"], "details": " " },
+		// types
+		{ "trigger": "bool", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "string", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "void", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "float", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "float32", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "float64", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "int", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "int8", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "int16", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "int32", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "int64", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "uint8", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "uint16", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "uint32", "kind": "type", "details": "built-in data type" },
+		{ "trigger": "uint64", "kind": "type", "details": "built-in data type" },
+	]
+}

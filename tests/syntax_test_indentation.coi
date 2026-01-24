@@ -1,0 +1,163 @@
+// SYNTAX TEST reindent "Coi.sublime-syntax"
+
+type MyType
+
+component EmptyComponent {
+}
+
+component MyComponent {
+
+    int[4] attr = [
+        0,
+        5,
+        10,
+        20,
+    ]
+
+    component EmptyComponent {}
+
+    component EmptyComponent {
+    }
+
+    enum EmptyEnum {}
+    enum EmptyEnum {
+    }
+
+    enum MyEnum {
+        Foo,
+        Bar,
+    }
+
+    def empty_function(int arg) : MyType {}
+
+    def empty_function(int arg) : MyType {
+    }
+
+    def test_conditional(int arg) : MyType {
+        if (arg == MyEnum::Foo)
+        {
+        }
+        else if (arg == MyEnum::Bar)
+        {
+        }
+        else
+        {
+        }
+
+        if (arg == MyEnum::Foo) {
+        } else if (arg == MyEnum::Bar) {
+        } else {
+        }
+
+        if (arg == MyEnum::Foo) {
+            arg = MyEnum::Bar;
+        } else if (arg == MyEnum::Bar) {
+            arg = MyEnum::Foo;
+        } else {
+            return;
+        }
+
+        if (arg == MyEnum::Foo)
+            arg = MyEnum::Bar;
+        else if (arg == MyEnum::Bar)
+            arg = MyEnum::Foo;
+        else
+            return;
+
+        if (arg == MyEnum::Foo) arg = MyEnum::Bar;
+        else if (arg == MyEnum::Bar) arg = MyEnum::Foo;
+        else return;
+    }
+
+    def test_for(int arg) : MyType {
+        for (i in 0:10) {}
+        for (i in 0:10) {}
+        for (i in 0:10) {
+        }
+        for (i in 0:10) {
+            for (i in 0:10) {
+                for (i in 0:10) {}
+                for (i in 0:10) {}
+                for (i in 0:10) {
+                }
+            }
+            for (i in 0:10) {
+            }
+        }
+        for (
+            i in 0:10
+        ) {
+        }
+        for (i in 0:10)
+            count_tick++;
+        for (i in 0:10) count_tick++;
+        for (i in 0:10) count_tick++;
+    }
+
+    def test_while(int arg) : MyType {
+        while (i < 10) {}
+        while (i < 10) {}
+        while (i < 10) {
+        }
+        while (i < 10) {
+            while (i < 10) {
+                while (i < 10) {}
+                while (i < 10) {}
+                while (i < 10) {
+                }
+            }
+            while (i < 10) {
+            }
+        }
+        while (
+            i < 10
+        ) {
+        }
+
+        while (i < 10)
+            count_tick++;
+        while (i < 10) count_tick++;
+        while (i < 10) count_tick++;
+    }
+
+    init {
+        attribute = true;
+    }
+
+    tick(int dt) {
+        ticks++;
+    }
+
+    style {
+        button[
+            attr=Value
+        ] {
+            color: red;
+        }
+    }
+
+    view {
+        <MyComponent onclick={my_function(+1)}/>
+
+        <MyComponent onclick={
+            my_function(
+                +1
+            )
+        }/>
+
+        <div style="color: {
+            get_color(
+                element_color[
+                    5
+                ]
+            )
+        }">
+    }
+}
+
+app {
+    root = MyComponent;
+    routes = {
+        "/" => MyComponent,
+    }
+}

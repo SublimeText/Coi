@@ -1,0 +1,12 @@
+{
+	"scope": "source.coi meta.function.body - comment - string",
+	"completions": [
+		{ "trigger": "else", "kind": ["keyword", "k", "Control"], "details": " " },
+		{ "trigger": "for", "kind": ["keyword", "k", "Control"], "details": " " },
+		{ "trigger": "if", "kind": ["keyword", "k", "Control"] },
+		{ "trigger": "import", "kind": ["keyword", "k", "Control"], "details": " " },
+		{ "trigger": "in", "kind": ["keyword", "k", "Control"] },
+		{ "trigger": "return", "kind": ["keyword", "k", "Control"], "details": " " },
+		{ "trigger": "while", "kind": ["keyword", "k", "Control"], "details": " " },
+	]
+}

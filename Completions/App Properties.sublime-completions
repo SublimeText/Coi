@@ -1,0 +1,10 @@
+{
+	"scope": "source.coi meta.app.body - meta.app.body meta meta - comment - string",
+	"completions": [
+		{ "trigger": "root", "kind": "variable", "annotation": "required", "details": "Root component" },
+		{ "trigger": "title", "kind": "variable", "annotation": "optional", "details": "Page title (<code>&lt;title&gt;</code> tag)" },
+		{ "trigger": "description", "kind": "variable", "annotation": "optional", "details": "Meta description" },
+		{ "trigger": "lang", "kind": "variable", "annotation": "optional", "details": "HTML lang attribute (default: \"en\")" },
+		{ "trigger": "routes", "kind": "variable", "annotation": "optional", "details": "Maps URL paths to components for client-side routing" },
+	]
+}
