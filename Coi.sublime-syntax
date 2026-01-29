@@ -29,6 +29,7 @@ contexts:
     - include: style-definitions
     - include: type-definitions
     - include: view-definitions
+    - include: variable-definitions
     - include: keywords
     - include: blocks
     - include: expressions
@@ -433,6 +434,52 @@ contexts:
     - include: scope:source.css
       apply_prototype: true
 
+###[ VARIABLE DEFINITIONS ]####################################################
+
+  variable-definitions:
+    # user data type
+    - match: (?:({{modifier}})\s+)?(?:({{type}})|({{identifier}}))(?=(?:\[.*\])?\s+{{identifier}})
+      captures:
+        1: storage.modifier.coi
+        2: storage.type.coi
+        3: support.type.coi
+      push:
+        - variable-definition-list
+        - variable-assignment
+        - variable-name
+        - type-dimension
+
+  variable-definition-list:
+    - meta_scope: meta.declaration.coi
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+      push:
+        - variable-assignment
+        - variable-name
+    - include: else-pop
+
+  variable-name:
+    - match: '{{variable_name}}'
+      scope: variable.other.coi
+      set: variable-dimension
+    - include: else-pop
+
+  variable-dimension:
+    - clear_scopes: 1
+    - meta_scope: meta.declaration.identifier.coi
+    - include: type-dimension
+
+  variable-assignment:
+    - match: =
+      scope: keyword.operator.assignment.coi
+      set: variable-initializer
+    - include: else-pop
+
+  variable-initializer:
+    - match: (?=;|,|{{keyword}})
+      pop: 1
+    - include: expressions
+
 ###[ VIEW DEFINITIONS ]########################################################
 
   view-definitions:
@@ -782,7 +829,9 @@ variables:
   component_name: '[A-Z][A-Za-z0-9_]*\b'
   variable_name: '[a-zA-Z_][a-zA-Z0-9_]*\b'
 
-  reserved: (?:{{keyword}}|{{modifier}}|{{type}})
+  reserved: (?:{{keyword}}|{{modifier}}|{{type}}|{{constant}})
+  constant: |-
+    (?x: false | true )\b
   keyword: |-
     (?x: def | view | return | if | else | for | while | computed | tick | init
     | mount | app | import | struct | style | type | global | in | root | extends

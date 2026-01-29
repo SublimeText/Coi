@@ -228,6 +228,90 @@
 //                   ^ meta.number.float.integer.coi constant.numeric.value.coi
 //                    ^ punctuation.section.subscript.end.coi
 
+/// [ VARIABLE DEFINITIONS ] //////////////////////////////////////////////////
+
+    data
+//  ^^^^ variable.other.coi
+
+    int data
+//  ^^^^ meta.declaration.coi
+//      ^^^^ meta.declaration.identifier.coi
+//  ^^^ storage.type.coi
+//      ^^^^ variable.other.coi
+
+    data item
+//  ^^^^^ meta.declaration.coi
+//       ^^^^ meta.declaration.identifier.coi
+//  ^^^^ support.type.coi
+//       ^^^^ variable.other.coi
+
+    pub int data
+//  ^^^^^^^^ meta.declaration.coi
+//          ^^^^ meta.declaration.identifier.coi
+//  ^^^ storage.modifier.coi
+//      ^^^ storage.type.coi
+//          ^^^^ variable.other.coi
+
+    pub int[] data
+//  ^^^^^^^^^^ meta.declaration.coi
+//            ^^^^ meta.declaration.identifier.coi
+//  ^^^ storage.modifier.coi
+//      ^^^ storage.type.coi
+//         ^^ meta.dimension.coi
+//         ^ punctuation.section.dimension.begin.coi
+//          ^ punctuation.section.dimension.end.coi
+//            ^^^^ variable.other.coi
+
+    pub data data
+//  ^^^^^^^^^ meta.declaration.coi
+//           ^^^^ meta.declaration.identifier.coi
+//  ^^^ storage.modifier.coi
+//      ^^^^ support.type.coi
+//           ^^^^ variable.other.coi
+
+    pub data data data
+//  ^^^^^^^^^ meta.declaration.coi
+//           ^^^^^ meta.declaration.identifier.coi
+//                ^^^^ - meta.declaration
+//  ^^^ storage.modifier.coi
+//      ^^^^ support.type.coi
+//           ^^^^ variable.other.coi
+//                ^^^^ variable.other.coi
+
+    pub data data, data[data]
+//  ^^^^^^^^^ meta.declaration.coi
+//           ^^^^ meta.declaration.identifier.coi
+//               ^^ meta.declaration.coi
+//                 ^^^^ meta.declaration.identifier.coi - meta.dimentsion
+//                     ^^^^^^ meta.declaration.identifier.coi meta.dimension.coi
+//  ^^^ storage.modifier.coi
+//      ^^^^ support.type.coi
+//           ^^^^ variable.other.coi
+//               ^ punctuation.separator.sequence.coi
+//                 ^^^^ variable.other.coi
+//                     ^ punctuation.section.dimension.begin.coi
+//                      ^^^^ variable.other.coi
+//                          ^ punctuation.section.dimension.end.coi
+
+    pub data[] data = [ data, data, data ]
+//  ^^^^^^^^^^^ meta.declaration.coi
+//             ^^^^^ meta.declaration.identifier.coi
+//                  ^^^^^^^^^^^^^^^^^^^^^^^ meta.declaration.coi
+//  ^^^ storage.modifier.coi
+//      ^^^^ support.type.coi
+//          ^^ meta.dimension.coi
+//          ^ punctuation.section.dimension.begin.coi
+//           ^ punctuation.section.dimension.end.coi
+//             ^^^^ variable.other.coi
+//                  ^ keyword.operator.assignment.coi
+//                    ^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.coi
+//                    ^ punctuation.section.sequence.begin.coi
+//                      ^^^^ variable.other.coi
+//                          ^ punctuation.separator.sequence.coi
+//                            ^^^^ variable.other.coi
+//                                ^ punctuation.separator.sequence.coi
+//                                  ^^^^ variable.other.coi
+//                                       ^ punctuation.section.sequence.end.coi
 
 /// [ CONTROL STATEMENTS ] ////////////////////////////////////////////////////
 
