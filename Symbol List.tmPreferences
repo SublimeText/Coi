@@ -3,7 +3,6 @@
 <dict>
 	<key>scope</key>
 	<string>
-		source.coi entity.name.namespace,
 		source.coi entity.name.class.component,
 		source.coi entity.name.constant
 	</string>
