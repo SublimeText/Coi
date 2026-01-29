@@ -644,7 +644,7 @@ contexts:
     - match: ','
       scope: punctuation.separator.sequence.coi
     - match: ;
-      scope: punctuation.terminator.statemant.coi
+      scope: punctuation.terminator.statement.coi
     - match: '::'
       scope: punctuation.accessor.double-colon.coi
       push: static-member

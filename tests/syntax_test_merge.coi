@@ -142,7 +142,7 @@ component MyComponent {
 //          ^^^^^^ variable.other.coi
 //                 ^ keyword.operator.assignment.coi
 //                   ^ meta.number.float.integer.coi constant.numeric.value.coi
-//                    ^ punctuation.terminator.statemant.coi
+//                    ^ punctuation.terminator.statement.coi
 =======
 // <- meta.block.conflict.separator.diff punctuation.section.block.diff
 //^^^^^ meta.block.conflict.separator.diff punctuation.section.block.diff
@@ -154,7 +154,7 @@ component MyComponent {
 //          ^^^^^^ variable.other.coi
 //                 ^ keyword.operator.assignment.coi
 //                   ^^ meta.number.float.integer.coi constant.numeric.value.coi
-//                     ^ punctuation.terminator.statemant.coi
+//                     ^ punctuation.terminator.statement.coi
 >>>>>>> master
 // <- meta.block.conflict.end.diff punctuation.section.block.end.diff
 //^^^^^ meta.block.conflict.end.diff punctuation.section.block.end.diff
@@ -173,7 +173,7 @@ component MyComponent {
 //^^^^^^^^^^^^^^^^^^^^ meta.component.body.coi meta.block.coi meta.function.body.coi meta.block.coi
 //      ^^^^^^ keyword.control.flow.return.coi
 //             ^^^^^ constant.language.boolean.false.coi
-//                  ^ punctuation.terminator.statemant.coi
+//                  ^ punctuation.terminator.statement.coi
 =======
 // <- meta.block.conflict.separator.diff punctuation.section.block.diff
 //^^^^^ meta.block.conflict.separator.diff punctuation.section.block.diff

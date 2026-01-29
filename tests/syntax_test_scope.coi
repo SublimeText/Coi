@@ -97,13 +97,13 @@
 //^^^^^ meta.string.coi string.quoted.double.coi
 //  ^^ constant.character.escape.coi
 //    ^ punctuation.definition.string.end.coi
-//     ^ punctuation.terminator.statemant.coi
+//     ^ punctuation.terminator.statement.coi
 
 /// [ OPERATORS ] /////////////////////////////////////////////////////////////
 
     , ; . ::
 //  ^ punctuation.separator.sequence.coi
-//    ^ punctuation.terminator.statemant.coi
+//    ^ punctuation.terminator.statement.coi
 //      ^ punctuation.accessor.dot.coi
 //        ^^ punctuation.accessor.double-colon.coi
 
@@ -280,7 +280,7 @@
 //                  ^^^ variable.other.coi
 //                      ^^ keyword.operator.assignment.augmented.coi
 //                         ^ variable.other.coi
-//                          ^ punctuation.terminator.statemant.coi
+//                          ^ punctuation.terminator.statement.coi
 //                            ^ punctuation.section.block.end.coi
 
     for (i in 0:10) { sum += i; }
@@ -298,7 +298,7 @@
 //                    ^^^ variable.other.coi
 //                        ^^ keyword.operator.assignment.augmented.coi
 //                           ^ variable.other.coi
-//                            ^ punctuation.terminator.statemant.coi
+//                            ^ punctuation.terminator.statement.coi
 //                              ^ punctuation.section.block.end.coi
 
     // ForEach (Arrays)
@@ -312,7 +312,7 @@
 //                        ^^^^^ variable.other.coi
 //                              ^^ keyword.operator.assignment.augmented.coi
 //                                 ^^^^^ variable.other.coi
-//                                      ^ punctuation.terminator.statemant.coi
+//                                      ^ punctuation.terminator.statement.coi
 //                                        ^ punctuation.section.block.end.coi
 
     while i < 10 i++;
@@ -322,7 +322,7 @@
 //            ^^ meta.number.float.integer.coi constant.numeric.value.coi
 //               ^ variable.other.coi
 //                ^^ keyword.operator.arithmetic.coi
-//                  ^ punctuation.terminator.statemant.coi
+//                  ^ punctuation.terminator.statement.coi
 
 /// [ APP DEFINITIONS ] ///////////////////////////////////////////////////////
 
@@ -337,7 +337,7 @@ app {
 //  ^^^^ variable.parameter.coi
 //       ^ keyword.operator.assignment.coi
 //         ^^^ support.class.component.coi
-//            ^ punctuation.terminator.statemant.coi
+//            ^ punctuation.terminator.statement.coi
 
     title = "My Counter App";              // Page title (<title> tag)
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
@@ -346,7 +346,7 @@ app {
 //          ^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
 //          ^ punctuation.definition.string.begin.coi
 //                         ^ punctuation.definition.string.end.coi
-//                          ^ punctuation.terminator.statemant.coi
+//                          ^ punctuation.terminator.statement.coi
 
     description = "A description for SEO"; // Meta description
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
@@ -355,7 +355,7 @@ app {
 //                ^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
 //                ^ punctuation.definition.string.begin.coi
 //                                      ^ punctuation.definition.string.end.coi
-//                                       ^ punctuation.terminator.statemant.coi
+//                                       ^ punctuation.terminator.statement.coi
 
     lang = "en";                           // HTML lang attribute (default: "en")
 //^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
@@ -364,7 +364,7 @@ app {
 //         ^^^^ meta.string.coi string.quoted.double.coi
 //         ^ punctuation.definition.string.begin.coi
 //            ^ punctuation.definition.string.end.coi
-//             ^ punctuation.terminator.statemant.coi
+//             ^ punctuation.terminator.statement.coi
 
     routes = { "/" => HomeComponent }      // Maps URL paths to components for client-side routing
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.app.body.coi meta.block.coi
@@ -498,7 +498,7 @@ state = Mode::Idle;
 //      ^^^^ support.class.component.coi
 //          ^^ punctuation.accessor.double-colon.coi
 //            ^^^^ constant.other.enum.coi
-//                ^ punctuation.terminator.statemant.coi
+//                ^ punctuation.terminator.statement.coi
 
 /// [ FUNCTION DEFINITIONS ] //////////////////////////////////////////////////
 
@@ -728,7 +728,7 @@ tick(float dt) { x += dt * 200; }
 //                    ^^ variable.other.coi
 //                       ^ keyword.operator.arithmetic.coi
 //                         ^^^ meta.number.float.integer.coi constant.numeric.value.coi
-//                            ^ punctuation.terminator.statemant.coi
+//                            ^ punctuation.terminator.statement.coi
 //                              ^ punctuation.section.block.end.coi
 
 /// [ STYLE BLOCKS ] //////////////////////////////////////////////////////////
