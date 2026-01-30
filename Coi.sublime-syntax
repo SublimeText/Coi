@@ -109,7 +109,7 @@ contexts:
       push: app-routes-assignment
     - match: (?:description|lang|root|title)\b
       scope: variable.parameter.coi
-    - include: text-interpolations
+    - include: unquoted-text-interpolations
     - include: annotations
     - include: components
     - include: constants
@@ -603,7 +603,14 @@ contexts:
 
 ###[ INTERPOLATIONS ]##########################################################
 
-  text-interpolations:
+  quoted-text-interpolations:
+    - match: (\$)(\{)
+      captures:
+        1: punctuation.definition.interpolation.begin.coi
+        2: punctuation.section.interpolation.begin.coi
+      push: text-interpolation-body
+
+  unquoted-text-interpolations:
     - match: \{
       scope: punctuation.section.interpolation.begin.coi
       push: text-interpolation-body
@@ -616,7 +623,14 @@ contexts:
       pop: 1
     - include: expressions
 
-  string-interpolations:
+  quoted-string-interpolations:
+    - match: (\$)(\{)
+      captures:
+        1: punctuation.definition.interpolation.begin.coi
+        2: punctuation.section.interpolation.begin.coi
+      push: string-interpolation-body
+
+  unquoted-string-interpolations:
     - match: \{
       scope: punctuation.section.interpolation.begin.coi
       push: string-interpolation-body
@@ -763,9 +777,12 @@ contexts:
   strings:
     - match: \"
       scope: punctuation.definition.string.begin.coi
-      push: string-body
+      push: double-quoted-string-body
+    - match: \`
+      scope: punctuation.definition.string.begin.coi
+      push: template-string-body
 
-  string-body:
+  double-quoted-string-body:
     - meta_include_prototype: false
     - meta_scope: meta.string.coi string.quoted.double.coi
     - match: \"
@@ -774,6 +791,18 @@ contexts:
     - match: \\.
       scope: constant.character.escape.coi
     - include: merge-conflict-markers
+    - include: quoted-string-interpolations
+
+  template-string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.template.coi string.quoted.other.coi
+    - match: \`
+      scope: punctuation.definition.string.end.coi
+      pop: 1
+    - match: \\`
+      scope: constant.character.escape.coi
+    - include: merge-conflict-markers
+    - include: quoted-string-interpolations
 
 ###[ TYPES ]###################################################################
 

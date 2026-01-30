@@ -37,12 +37,12 @@ contexts:
 
   prototype:
     - meta_prepend: true
-    - include: scope:source.coi#text-interpolations
+    - include: scope:source.coi#unquoted-text-interpolations
       apply_prototype: true
 
   cdata-content:
     - meta_prepend: true
-    - include: scope:source.coi#string-interpolations
+    - include: scope:source.coi#unquoted-string-interpolations
       apply_prototype: true
 
   tag-style-attribute-value:
@@ -73,14 +73,54 @@ contexts:
     - include: scope:source.css.embedded.coi.single-quoted
       apply_prototype: true
 
-  tag-attribute-value-content:
+  tag-class-attribute-value-quoted-content:
     - meta_prepend: true
-    - include: scope:source.coi#string-interpolations
+    - include: scope:source.coi#quoted-string-interpolations
       apply_prototype: true
 
-  strings-common-content:
+  tag-class-attribute-value-unquoted-content:
     - meta_prepend: true
-    - include: scope:source.coi#string-interpolations
+    - include: scope:source.coi#unquoted-string-interpolations
+      apply_prototype: true
+
+  tag-href-attribute-value-quoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#quoted-string-interpolations
+      apply_prototype: true
+
+  tag-href-attribute-value-unquoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#unquoted-string-interpolations
+      apply_prototype: true
+
+  tag-id-attribute-value-quoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#quoted-string-interpolations
+      apply_prototype: true
+
+  tag-id-attribute-value-unquoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#unquoted-string-interpolations
+      apply_prototype: true
+
+  tag-generic-attribute-value-quoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#quoted-string-interpolations
+      apply_prototype: true
+
+  tag-generic-attribute-value-unquoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#unquoted-string-interpolations
+      apply_prototype: true
+
+  strings-quoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#quoted-string-interpolations
+      apply_prototype: true
+
+  strings-unquoted-content:
+    - meta_prepend: true
+    - include: scope:source.coi#unquoted-string-interpolations
       apply_prototype: true
 
 ###[ CONTROL TAGS ]#############################################################

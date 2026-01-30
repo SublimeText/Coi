@@ -99,6 +99,55 @@
 //    ^ punctuation.definition.string.end.coi
 //     ^ punctuation.terminator.statement.coi
 
+    "Parsed ${count} shows: ${shows[0].title}"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi
+//  ^^^^^^^^ string.quoted.double.coi
+//  ^ punctuation.definition.string.begin.coi
+//          ^^^^^^^^ meta.interpolation.coi
+//          ^ punctuation.definition.interpolation.begin.coi
+//           ^ punctuation.section.interpolation.begin.coi
+//            ^^^^^ source.coi.embedded.coi variable.other.coi
+//                 ^ punctuation.section.interpolation.end.coi
+//                  ^^^^^^^^ string.quoted.double.coi
+//                          ^^^^^^^^^^^^^^^^^ meta.interpolation.coi
+//                          ^ punctuation.definition.interpolation.begin.coi
+//                           ^ punctuation.section.interpolation.begin.coi
+//                            ^^^^^^^^^^^^^^ source.coi.embedded.coi
+//                            ^^^^^ variable.other.object.coi
+//                                 ^^^ meta.subscript.coi
+//                                 ^ punctuation.section.subscript.begin.coi
+//                                  ^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                   ^ punctuation.section.subscript.end.coi
+//                                    ^ punctuation.accessor.dot.coi
+//                                     ^^^^^ variable.other.coi
+//                                          ^ punctuation.section.interpolation.end.coi
+//                                           ^ string.quoted.double.coi punctuation.definition.string.end.coi
+
+    // template strings
+
+    `[
+//  ^^^ meta.string.template.coi string.quoted.other.coi
+//  ^ punctuation.definition.string.begin.coi
+        {"title": "${show1}", "id": ${id1}}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.template.coi
+//^^^^^^^^^^^^^^^^^ string.quoted.other.coi
+//                 ^^^^^^^^ meta.interpolation.coi
+//                 ^ punctuation.definition.interpolation.begin.coi
+//                  ^ punctuation.section.interpolation.begin.coi
+//                   ^^^^^ source.coi.embedded.coi variable.other.coi
+//                        ^ punctuation.section.interpolation.end.coi
+//                         ^^^^^^^^^ string.quoted.other.coi
+//                                  ^^^^^^ meta.interpolation.coi
+//                                  ^ punctuation.definition.interpolation.begin.coi
+//                                   ^ punctuation.section.interpolation.begin.coi
+//                                    ^^^ source.coi.embedded.coi variable.other.coi
+//                                       ^ punctuation.section.interpolation.end.coi
+//                                        ^^ string.quoted.other.coi
+    ]`;
+//^^^^ meta.string.template.coi string.quoted.other.coi
+//   ^ punctuation.definition.string.end.coi
+//    ^ punctuation.terminator.statement.coi
+
 /// [ OPERATORS ] /////////////////////////////////////////////////////////////
 
     , ; . ::
@@ -716,8 +765,18 @@ type array<T> {
 //   ^^^^^^ variable.annotation.coi
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coi
 //         ^ punctuation.section.group.begin.coi
-//          ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi string.quoted.double.coi
-//          ^ punctuation.definition.string.begin.coi
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coi
+//          ^ string.quoted.double.coi  punctuation.definition.string.begin.coi
+//           ^^^^^^^ meta.interpolation.coi
+//           ^ punctuation.definition.interpolation.begin.coi
+//            ^ punctuation.section.interpolation.begin.coi
+//                 ^ punctuation.section.interpolation.end.coi
+//                  ^^^^^^^^^^^ string.quoted.double.coi
+//                             ^^^^ meta.interpolation.coi
+//                             ^ punctuation.definition.interpolation.begin.coi
+//                              ^ punctuation.section.interpolation.begin.coi
+//                                ^ punctuation.section.interpolation.end.coi
+//                                 ^^ string.quoted.double.coi
 //                                  ^ punctuation.definition.string.end.coi
 //                                   ^ punctuation.section.group.end.coi
     def push(T value): void
@@ -879,6 +938,21 @@ style global {  }
 
 /// [ VIEW BLOCKS ] ///////////////////////////////////////////////////////////
 
+view
+// <- meta.view.coi keyword.declaration.view.coi
+//^^^ meta.view.coi
+//^^ keyword.declaration.view.coi
+
+view {  } }
+// <- meta.view.coi keyword.declaration.view.coi
+//^^^ meta.view.coi
+//   ^^^^ meta.view.body.coi meta.block.coi
+//       ^^^ - meta.view
+//^^ keyword.declaration.view.coi
+//   ^ punctuation.section.block.begin.coi
+//    ^^ text.html.embedded.coi
+//      ^ punctuation.section.block.end.coi
+
 view {
 // <- meta.view.coi keyword.declaration.view.coi
 //^^^ meta.view.coi
@@ -886,9 +960,8 @@ view {
 //   ^ meta.view.body.coi meta.block.coi punctuation.section.block.begin.coi - text.html
 //    ^ meta.view.body.coi meta.block.coi text.html.embedded.coi - punctuation
 
-    <h1 class={class} style="width: {progress}%">{"The " + tilte}</h1>
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.view.body.coi meta.block.coi text.html.embedded.coi
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.block.any.html
+    <h1 class={class} style="width: ${progress}%">{"The " + tilte}</h1>
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.block.any.html
 //  ^ punctuation.definition.tag.begin.html
 //   ^^ entity.name.tag.block.any.html
 //      ^^^^^^^^^^^^^ meta.attribute-with-value.class.html
@@ -896,35 +969,37 @@ view {
 //           ^ punctuation.separator.key-value.html
 //            ^^^^^^^ meta.class-name.html meta.string.html meta.interpolation.coi
 //            ^ punctuation.section.interpolation.begin.coi
-//             ^^^^^ variable.other.coi
+//             ^^^^^ source.coi.embedded.coi variable.other.coi
 //                  ^ punctuation.section.interpolation.end.coi
-//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.style.html
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.style.html
 //                    ^^^^^ entity.other.attribute-name.style.html
 //                         ^ punctuation.separator.key-value.html
-//                          ^^^^^^^^^^^^^^^^^^^^ meta.string.html
+//                          ^^^^^^^^^^^^^^^^^^^^^ meta.string.html
 //                          ^ string.quoted.double.html punctuation.definition.string.begin.html
-//                           ^^^^^^^^^^^^^^^^^^ source.css.embedded.html
+//                           ^^^^^^^^^^^^^^^^^^^ source.css.embedded.html
 //                           ^^^^^ meta.property-name.css support.type.property-name.css
 //                                ^ punctuation.separator.key-value.css
-//                                 ^^^^^^^^^^^^ meta.property-value.css
-//                                  ^^^^^^^^^^ meta.interpolation.coi
-//                                  ^ punctuation.section.interpolation.begin.coi
-//                                   ^^^^^^^^ variable.other.coi
-//                                           ^ punctuation.section.interpolation.end.coi
-//                                             ^ string.quoted.double.html punctuation.definition.string.end.html
-//                                              ^ punctuation.definition.tag.end.html
-//                                               ^^^^^^^^^^^^^^^^ meta.interpolation.coi
-//                                               ^ punctuation.section.interpolation.begin.coi
-//                                                ^^^^^^ meta.string.coi string.quoted.double.coi
-//                                                ^ punctuation.definition.string.begin.coi
-//                                                     ^ punctuation.definition.string.end.coi
-//                                                       ^ keyword.operator.arithmetic.coi
-//                                                         ^^^^^ variable.other.coi
-//                                                              ^ punctuation.section.interpolation.end.coi
-//                                                               ^^^^^ meta.tag.block.any.html
-//                                                               ^^ punctuation.definition.tag.begin.html
-//                                                                 ^^ entity.name.tag.block.any.html
-//                                                                   ^ punctuation.definition.tag.end.html
+//                                 ^^^^^^^^^^^^^ meta.property-value.css
+//                                  ^^^^^^^^^^^ meta.interpolation.coi
+//                                  ^ punctuation.definition.interpolation.begin.coi
+//                                   ^ punctuation.section.interpolation.begin.coi
+//                                    ^^^^^^^^ source.coi.embedded.coi variable.other.coi
+//                                            ^ punctuation.section.interpolation.end.coi
+//                                              ^ string.quoted.double.html punctuation.definition.string.end.html
+//                                               ^ punctuation.definition.tag.end.html
+//                                                ^^^^^^^^^^^^^^^^ meta.interpolation.coi
+//                                                ^ punctuation.section.interpolation.begin.coi
+//                                                 ^^^^^^^^^^^^^^ source.coi.embedded.coi
+//                                                 ^^^^^^ meta.string.coi string.quoted.double.coi
+//                                                 ^ punctuation.definition.string.begin.coi
+//                                                      ^ punctuation.definition.string.end.coi
+//                                                        ^ keyword.operator.arithmetic.coi
+//                                                          ^^^^^ variable.other.coi
+//                                                               ^ punctuation.section.interpolation.end.coi
+//                                                                ^^^^^ meta.tag.block.any.html
+//                                                                ^^ punctuation.definition.tag.begin.html
+//                                                                  ^^ entity.name.tag.block.any.html
+//                                                                    ^ punctuation.definition.tag.end.html
 
     // conditional statements
 
@@ -986,6 +1061,7 @@ view {
 //                         ^ punctuation.separator.key-value.html
 //                          ^^^^^^^^^ meta.string.html meta.interpolation.coi
 //                          ^ punctuation.section.interpolation.begin.coi
+//                           ^^^^^^^ source.coi.embedded.coi
 //                           ^^^^ variable.other.object.coi
 //                               ^ punctuation.accessor.dot.coi
 //                                ^^ variable.other.coi
@@ -996,7 +1072,7 @@ view {
 //       ^ punctuation.definition.tag.begin.html
 //        ^^^^^^ entity.name.tag.other.html meta.interpolation.coi
 //        ^ punctuation.section.interpolation.begin.coi
-//         ^^^^ variable.other.coi
+//         ^^^^ source.coi.embedded.coi variable.other.coi
 //             ^ punctuation.section.interpolation.end.coi
 //               ^^ punctuation.definition.tag.end.html
      </for>
@@ -1007,22 +1083,23 @@ view {
 
     // component references
 
-    <Header title="My {appName}" />
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+    <Header title="My ${appName}" />
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
 //  ^ punctuation.definition.tag.begin.html
 //   ^^^^^^ entity.name.tag.component.html
-//          ^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.html
+//          ^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.html
 //          ^^^^^ entity.other.attribute-name.html
 //               ^ punctuation.separator.key-value.html
-//                ^^^^^^^^^^^^^^ meta.string.html
+//                ^^^^^^^^^^^^^^^ meta.string.html
 //                ^^^^ string.quoted.double.html
 //                ^ punctuation.definition.string.begin.html
-//                    ^^^^^^^^^ meta.interpolation.coi
-//                    ^ punctuation.section.interpolation.begin.coi
-//                     ^^^^^^^ variable.other.coi
-//                            ^ punctuation.section.interpolation.end.coi
-//                             ^ string.quoted.double.html punctuation.definition.string.end.html
-//                               ^^ punctuation.definition.tag.end.html
+//                    ^^^^^^^^^^ meta.interpolation.coi
+//                    ^ punctuation.definition.interpolation.begin.coi
+//                     ^ punctuation.section.interpolation.begin.coi
+//                      ^^^^^^^ source.coi.embedded.coi variable.other.coi
+//                             ^ punctuation.section.interpolation.end.coi
+//                              ^ string.quoted.double.html punctuation.definition.string.end.html
+//                                ^^ punctuation.definition.tag.end.html
 
     <Content />
 //  ^^^^^^^^^^^ meta.tag.component.html
@@ -1032,7 +1109,6 @@ view {
 
     // Value props (copied)
     <Button label="Click me" size={24} />
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.view.body.coi meta.block.coi text.html.embedded.coi
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
 //  ^ punctuation.definition.tag.begin.html
 //   ^^^^^^ entity.name.tag.component.html
@@ -1047,7 +1123,7 @@ view {
 //                               ^ punctuation.separator.key-value.html
 //                                ^^^^ meta.string.html meta.interpolation.coi
 //                                ^ punctuation.section.interpolation.begin.coi
-//                                 ^^ meta.number.float.integer.coi constant.numeric.value.coi
+//                                 ^^ source.coi.embedded.coi meta.number.float.integer.coi constant.numeric.value.coi
 //                                   ^ punctuation.section.interpolation.end.coi
 //                                     ^^ punctuation.definition.tag.end.html
 
@@ -1062,7 +1138,7 @@ view {
 //                 ^ punctuation.separator.key-value.html
 //                  ^^^^^^^ meta.string.html meta.interpolation.coi
 //                  ^ punctuation.section.interpolation.begin.coi
-//                   ^^^^^ variable.other.coi
+//                   ^^^^^ source.coi.embedded.coi variable.other.coi
 //                        ^ punctuation.section.interpolation.end.coi
 //                          ^^ punctuation.definition.tag.end.html
 
@@ -1077,7 +1153,7 @@ view {
 //                 ^ punctuation.separator.key-value.html
 //                  ^^^^^^ meta.string.html meta.interpolation.coi
 //                  ^ punctuation.section.interpolation.begin.coi
-//                   ^^^^ variable.other.coi
+//                   ^^^^ source.coi.embedded.coi variable.other.coi
 //                       ^ punctuation.section.interpolation.end.coi
 //                         ^^ punctuation.definition.tag.end.html
 
@@ -1092,9 +1168,8 @@ view {
 //                     ^ punctuation.separator.key-value.html
 //                      ^^^^^^^^^^^^^^ meta.string.html meta.interpolation.coi
 //                      ^ punctuation.section.interpolation.begin.coi
-//                       ^^^^^^^^^^^^ variable.other.coi
+//                       ^^^^^^^^^^^^ source.coi.embedded.coi variable.other.coi
 //                                   ^ punctuation.section.interpolation.end.coi
 //                                     ^^ punctuation.definition.tag.end.html
-
 }
 // <- meta.view.body.coi meta.block.coi punctuation.section.block.end.coi - text.html
