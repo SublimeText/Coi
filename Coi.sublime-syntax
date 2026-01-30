@@ -25,6 +25,7 @@ contexts:
     - include: enum-definitions
     - include: event-definitions
     - include: function-definitions
+    - include: module-definitions
     - include: router-definitions
     - include: style-definitions
     - include: type-definitions
@@ -385,6 +386,20 @@ contexts:
       scope: punctuation.section.block.end.coi
       pop: 1
     - include: statements
+
+###[ MODULE DEFINITIONS ]######################################################
+
+  module-definitions:
+    - match: module\b
+      scope: meta.namespace.module.coi keyword.declaration.module.coi
+      push: module-name
+
+  module-name:
+    - meta_content_scope: meta.namespace.module.coi
+    - match: '{{component_name}}'
+      scope: meta.namespace.module.identifier.coi entity.name.namespace.module.coi
+      pop: 1
+    - include: else-pop
 
 ###[ ROUTER DEFINITIONS ]######################################################
 

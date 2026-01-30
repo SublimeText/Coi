@@ -623,6 +623,19 @@ def funcName(string arg, int[] count = 10): string {  }
 //                                                 ^ punctuation.section.block.begin.coi
 //                                                    ^ punctuation.section.block.end.coi
 
+/// [ MODULE DEFINITIONS ]/////////////////////////////////////////////////////
+
+module
+// <- meta.namespace.module.coi keyword.declaration.module.coi
+//^^^^^ meta.namespace.module.coi
+//^^^^ keyword.declaration.module.coi
+
+module Name
+// <- meta.namespace.module.coi keyword.declaration.module.coi
+//^^^^^ meta.namespace.module.coi
+//^^^^ keyword.declaration.module.coi
+//     ^^^^ meta.namespace.module.identifier.coi entity.name.namespace.module.coi
+
 /// [ ROUTER DEFINITIONS ]/////////////////////////////////////////////////////
 
 router {
