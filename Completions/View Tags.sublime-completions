@@ -4,5 +4,6 @@
 		{ "trigger": "if", "kind": ["markup", "k", "Keyword"], "details": "flow control tags" },
 		{ "trigger": "else", "kind": ["markup", "k", "Keyword"], "details": "flow control tags" },
 		{ "trigger": "for", "kind": ["markup", "k", "Keyword"], "details": "flow control tags" },
+		{ "trigger": "raw", "kind": ["markup", "t", "Tags"], "details": "raw html tags" },
 	]
 }

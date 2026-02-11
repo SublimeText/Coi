@@ -1209,5 +1209,15 @@ view {
 //                       ^^^^^^^^^^^^ source.coi.embedded.coi variable.other.coi
 //                                   ^ punctuation.section.interpolation.end.coi
 //                                     ^^ punctuation.definition.tag.end.html
+
+    <raw></raw>
+//  ^^^^^^^^^^^ meta.tag.other.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^ entity.name.tag.other.html
+//      ^ punctuation.definition.tag.end.html
+//       ^^ punctuation.definition.tag.begin.html
+//         ^^^ entity.name.tag.other.html
+//            ^ punctuation.definition.tag.end.html
+
 }
 // <- meta.view.body.coi meta.block.coi punctuation.section.block.end.coi - text.html
