@@ -126,10 +126,12 @@ contexts:
 ###[ CONTROL TAGS ]#############################################################
 
   coi-tags:
-    - match: (</?)({{component_name}})
+    - match: (</?)(?:({{component_name}})(::))?({{component_name}}){{tag_name_break}}
       captures:
         1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.component.html
+        2: entity.name.tag.namespace.html
+        3: punctuation.accessor.double-colon.coi
+        4: entity.name.tag.component.html
       push: coi-component-tag-content
     - match: (</?)(if{{tag_name_break}})
       captures:
@@ -182,4 +184,4 @@ contexts:
 variables:
   # make `{` a valid tag name start sequence
   tag_name_start: (?:[A-Za-z]|{)
-  component_name: '[A-Z][A-Za-z0-9_]*{{tag_name_break}}'
+  component_name: '[A-Z][A-Za-z0-9_]*'

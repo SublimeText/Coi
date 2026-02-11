@@ -1210,6 +1210,15 @@ view {
 //                                   ^ punctuation.section.interpolation.end.coi
 //                                     ^^ punctuation.definition.tag.end.html
 
+    // qualified component
+    <TurboUI::Button />
+//  ^^^^^^^^^^^^^^^^^^^ meta.tag.component.html
+//  ^ punctuation.definition.tag.begin.html
+//   ^^^^^^^ entity.name.tag.namespace.html
+//          ^^ punctuation.accessor.double-colon.coi
+//            ^^^^^^ entity.name.tag.component.html
+//                   ^^ punctuation.definition.tag.end.html
+
     <raw></raw>
 //  ^^^^^^^^^^^ meta.tag.other.html
 //  ^ punctuation.definition.tag.begin.html
