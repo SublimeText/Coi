@@ -727,6 +727,44 @@ router {
 //                                           ^ punctuation.section.arguments.end.coi
 }
 
+/// [ STRUCT DEFINITIONS ] ////////////////////////////////////////////////////
+
+pod
+// <- meta.struct.coi keyword.declaration.struct.coi
+//^ meta.struct.coi keyword.declaration.struct.coi
+
+pod my_struct
+//^^ meta.struct.coi
+//^ keyword.declaration.struct.coi
+//  ^^^^^^^^^ meta.struct.identifier.coi entity.name.struct.coi
+//           ^ meta.struct.coi
+
+pod MyStruct
+//^^ meta.struct.coi
+//^ keyword.declaration.struct.coi
+//  ^^^^^^^^ meta.struct.identifier.coi entity.name.struct.coi
+//          ^ meta.struct.coi
+
+pod MyStruct { int attr1, attr2; MyStruct attr3; }
+//^^ meta.struct.coi
+//^ keyword.declaration.struct.coi
+//  ^^^^^^^^ meta.struct.identifier.coi entity.name.struct.coi
+//          ^ meta.struct.coi
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.struct.body.coi meta.block.coi
+//           ^ punctuation.section.block.begin.coi
+//             ^^^^ meta.declaration.coi
+//             ^^^ storage.type.coi
+//                 ^^^^^ meta.declaration.identifier.coi variable.other.coi
+//                      ^^ meta.declaration.coi
+//                      ^ punctuation.separator.sequence.coi
+//                        ^^^^^ meta.declaration.identifier.coi variable.other.coi
+//                             ^ punctuation.terminator.statement.coi
+//                               ^^^^^^^^^ meta.declaration.coi
+//                               ^^^^^^^^ support.type.coi
+//                                        ^^^^^ meta.declaration.identifier.coi variable.other.coi
+//                                             ^ punctuation.terminator.statement.coi
+//                                               ^ punctuation.section.block.end.coi
+
 /// [ TYPE DEFINITIONS ] //////////////////////////////////////////////////////
 
 type

@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[
+pod ${1:MyStruct} {
+	$0
+}
+]]></content>
+	<tabTrigger>pod</tabTrigger>
+	<scope>source.coi - (comment | string) - source.coi source - source.coi text</scope>
+	<description>struct block</description>
+</snippet>

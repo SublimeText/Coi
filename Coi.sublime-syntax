@@ -28,6 +28,7 @@ contexts:
     - include: module-definitions
     - include: router-definitions
     - include: style-definitions
+    - include: pod-definitions
     - include: type-definitions
     - include: view-definitions
     - include: variable-definitions
@@ -400,6 +401,52 @@ contexts:
       scope: meta.namespace.module.identifier.coi entity.name.namespace.module.coi
       pop: 1
     - include: else-pop
+
+###[ POD DEFINITIONS ]#########################################################
+
+  pod-definitions:
+    - match: pod\b
+      scope: meta.struct.coi keyword.declaration.struct.coi
+      push: pod-name
+
+  pod-name:
+    - meta_content_scope: meta.struct.coi
+    - match: '{{identifier}}'
+      scope: meta.struct.identifier.coi entity.name.struct.coi
+      set: pod-parameter
+    - include: pod-parameter
+
+  pod-parameter:
+    - meta_content_scope: meta.struct.coi
+    - match: \<
+      scope: punctuation.defintition.generic.begin.coi
+      set: pod-parameter-body
+    - include: pod-block
+
+  pod-parameter-body:
+    - meta_scope: meta.struct.parameter.coi meta.generic.coi
+    - match: \>
+      scope: punctuation.defintition.generic.end.coi
+      set: pod-block
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+    - match: '{{identifier}}'
+      scope: variable.parameter.struct.coi
+    - include: else-pop
+
+  pod-block:
+    - meta_content_scope: meta.struct.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: pod-block-body
+    - include: else-pop
+
+  pod-block-body:
+    - meta_scope: meta.struct.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
 
 ###[ ROUTER DEFINITIONS ]######################################################
 
@@ -879,7 +926,7 @@ variables:
   keyword: |-
     (?x: def | view | return | if | else | for | while | computed | tick | init
     | mount | app | import | struct | style | type | global | in | root | extends
-    | enum | key | router | route )\b
+    | enum | key | pod | router | route )\b
   modifier: |-
     (?x: mut | pub | shared )\b
   type: |-

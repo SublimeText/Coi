@@ -1,9 +1,11 @@
 {
 	"scope": "source.coi - meta.block - comment - string",
 	"completions": [
-		{ "trigger": "app", "kind": ["keyword", "k", "Declaration"], "details": " " },
-		{ "trigger": "component", "kind": ["keyword", "k", "Declaration"], "details": " " },
-		{ "trigger": "def", "kind": ["keyword", "k", "Declaration"], "details": " " },
+		{ "trigger": "app", "kind": ["keyword", "k", "Declaration"], "details": "app declaration" },
+		{ "trigger": "component", "kind": ["keyword", "k", "Declaration"], "details": "component declaration" },
+		{ "trigger": "def", "kind": ["keyword", "k", "Declaration"], "details": "function definition" },
+		{ "trigger": "pod", "kind": ["keyword", "k", "Declaration"], "details": "struct definition" },
+		{ "trigger": "type", "kind": ["keyword", "k", "Declaration"], "details": "type definition" },
 		{ "trigger": "import", "kind": ["keyword", "k", "Control"], "details": " " },
 	]
 }
