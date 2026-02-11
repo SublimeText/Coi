@@ -496,6 +496,52 @@ contexts:
     - include: scope:source.css
       apply_prototype: true
 
+###[ TYPE DEFINITIONS ]########################################################
+
+  type-definitions:
+    - match: type\b
+      scope: meta.type.coi keyword.declaration.type.coi
+      push: type-name
+
+  type-name:
+    - meta_content_scope: meta.type.coi
+    - match: '{{identifier}}'
+      scope: meta.type.identifier.coi entity.name.type.coi
+      set: type-parameter
+    - include: type-parameter
+
+  type-parameter:
+    - meta_content_scope: meta.type.coi
+    - match: \<
+      scope: punctuation.defintition.generic.begin.coi
+      set: type-parameter-body
+    - include: type-block
+
+  type-parameter-body:
+    - meta_scope: meta.type.parameter.coi meta.generic.coi
+    - match: \>
+      scope: punctuation.defintition.generic.end.coi
+      set: type-block
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+    - match: '{{identifier}}'
+      scope: variable.parameter.type.coi
+    - include: else-pop
+
+  type-block:
+    - meta_content_scope: meta.type.coi
+    - match: \{
+      scope: punctuation.section.block.begin.coi
+      set: type-block-body
+    - include: else-pop
+
+  type-block-body:
+    - meta_scope: meta.type.body.coi meta.block.coi
+    - match: \}
+      scope: punctuation.section.block.end.coi
+      pop: 1
+    - include: statements
+
 ###[ VARIABLE DEFINITIONS ]####################################################
 
   variable-definitions:
@@ -564,52 +610,6 @@ contexts:
       pop: 1
     - include: scope:text.html.embedded.coi
       apply_prototype: true
-
-###[ TYPE DEFINITIONS ]########################################################
-
-  type-definitions:
-    - match: type\b
-      scope: meta.type.coi keyword.declaration.type.coi
-      push: type-name
-
-  type-name:
-    - meta_content_scope: meta.type.coi
-    - match: '{{identifier}}'
-      scope: meta.type.identifier.coi entity.name.type.coi
-      set: type-parameter
-    - include: type-parameter
-
-  type-parameter:
-    - meta_content_scope: meta.type.coi
-    - match: \<
-      scope: punctuation.defintition.generic.begin.coi
-      set: type-parameter-body
-    - include: type-block
-
-  type-parameter-body:
-    - meta_scope: meta.type.parameter.coi meta.generic.coi
-    - match: \>
-      scope: punctuation.defintition.generic.end.coi
-      set: type-block
-    - match: ','
-      scope: punctuation.separator.sequence.coi
-    - match: '{{identifier}}'
-      scope: variable.parameter.type.coi
-    - include: else-pop
-
-  type-block:
-    - meta_content_scope: meta.type.coi
-    - match: \{
-      scope: punctuation.section.block.begin.coi
-      set: type-block-body
-    - include: else-pop
-
-  type-block-body:
-    - meta_scope: meta.type.body.coi meta.block.coi
-    - match: \}
-      scope: punctuation.section.block.end.coi
-      pop: 1
-    - include: statements
 
 ###[ BLOCKS ]##################################################################
 
