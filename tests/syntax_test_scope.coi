@@ -797,7 +797,7 @@ pod MyStruct { int attr1, attr2; MyStruct attr3; }
 
 /// [ TYPE DEFINITIONS ] //////////////////////////////////////////////////////
 
-type
+type ;
 // <- meta.type.coi keyword.declaration.type.coi
 //^^ meta.type.coi keyword.declaration.type.coi
 
@@ -847,19 +847,19 @@ type array<T> {
 //                                 ^^ string.quoted.double.coi
 //                                  ^ punctuation.definition.string.end.coi
 //                                   ^ punctuation.section.group.end.coi
-    def push(T value): void
-//^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi
+    def push(T type): void
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi
 //  ^^^^ meta.function.coi
 //  ^^^ keyword.declaration.function.coi
 //      ^^^^ meta.function.identifier.coi entity.name.function.coi
-//          ^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^^^^^^^^ meta.function.parameters.coi meta.group.coi
 //          ^ punctuation.section.group.begin.coi
 //           ^ support.type.coi
-//             ^^^^^ variable.parameter.coi
-//                  ^ punctuation.section.group.end.coi
-//                   ^ meta.function.coi punctuation.separator.return-type
-//                    ^^^^^^ meta.function.return-type.coi
-//                     ^^^^ storage.type.coi
+//             ^^^^ variable.parameter.coi
+//                 ^ punctuation.section.group.end.coi
+//                  ^ meta.function.coi punctuation.separator.return-type
+//                   ^^^^^^ meta.function.return-type.coi
+//                    ^^^^ storage.type.coi
 
     def appl(mut T& value = "", int count = 4, def cb : T): void
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.type.body.coi meta.block.coi

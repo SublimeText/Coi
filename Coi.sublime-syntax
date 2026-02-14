@@ -935,7 +935,7 @@ variables:
     (?x: false | true )\b
   keyword: |-
     (?x: def | view | return | if | else | for | while | computed | tick | init
-    | mount | app | import | struct | style | type | global | in | root | extends
+    | mount | app | import | struct | style | global | in | root | extends
     | enum | key | pod | router | route )\b
   modifier: |-
     (?x: mut | pub | shared )\b
