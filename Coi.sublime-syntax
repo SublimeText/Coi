@@ -773,12 +773,14 @@ contexts:
       push: static-member
     - match: \.
       scope: punctuation.accessor.dot.coi
-    - match: '[-+*/%]='
+    - match: (?:<<|>>|[-+*/%&^|])=
       scope: keyword.operator.assignment.augmented.coi
     - match: \+\+?|--?|[*/%]
       scope: keyword.operator.arithmetic.coi
     - match: \&\&|\|\||!
       scope: keyword.operator.logical.coi
+    - match: '<<|>>|[&^|~]'
+      scope: keyword.operator.bitwise.coi
     - match: '[<>]=?|=='
       scope: keyword.operator.comparison.coi
     - match: =>
@@ -789,8 +791,6 @@ contexts:
       scope: keyword.operator.move.coi
     - match: ':'
       scope: punctuation.separator.range.coi
-    - match: '&'
-      scope: keyword.operator.reference.coi
     - match: \?
       scope: keyword.operator.ternary.coi
       push: ternary-body

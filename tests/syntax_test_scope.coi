@@ -156,12 +156,17 @@
 //      ^ punctuation.accessor.dot.coi
 //        ^^ punctuation.accessor.double-colon.coi
 
-    += -= *= /= *=
+    += -= *= /= *= &= |= ^= <<= >>=
 //  ^^ keyword.operator.assignment.augmented.coi
 //     ^^ keyword.operator.assignment.augmented.coi
 //        ^^ keyword.operator.assignment.augmented.coi
 //           ^^ keyword.operator.assignment.augmented.coi
 //              ^^ keyword.operator.assignment.augmented.coi
+//                 ^^ keyword.operator.assignment.augmented.coi
+//                    ^^ keyword.operator.assignment.augmented.coi
+//                       ^^ keyword.operator.assignment.augmented.coi
+//                          ^^^ keyword.operator.assignment.augmented.coi
+//                              ^^^ keyword.operator.assignment.augmented.coi
 
     ++ + -- - * / %
 //  ^^ keyword.operator.arithmetic.coi
@@ -183,8 +188,13 @@
 //  ^^ keyword.operator.logical.coi
 //     ^^ keyword.operator.logical.coi
 
-    &
-//  ^ keyword.operator.reference.coi
+    & | ~ ^ << >>
+//  ^ keyword.operator.bitwise.coi
+//    ^ keyword.operator.bitwise.coi
+//      ^ keyword.operator.bitwise.coi
+//        ^ keyword.operator.bitwise.coi
+//          ^^ keyword.operator.bitwise.coi
+//             ^^ keyword.operator.bitwise.coi
 
     :=
 //  ^^ keyword.operator.move.coi
