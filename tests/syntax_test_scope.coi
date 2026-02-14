@@ -62,6 +62,26 @@
 //           ^ keyword.operator.arithmetic.coi
 //            ^^^ meta.number.float.decimal.coi constant.numeric.value.coi
 
+    0b 0b0 0b11
+//  ^^ meta.number.integer.binary.coi constant.numeric.base.coi
+//     ^^^ meta.number.integer.binary.coi
+//     ^^ constant.numeric.base.coi
+//       ^ constant.numeric.value.coi
+//         ^^^^ meta.number.integer.binary.coi
+//         ^^ constant.numeric.base.coi
+//           ^^ constant.numeric.value.coi
+
+    0x7f 0x00 0xffff
+//  ^^^^ meta.number.integer.hexadecimal.coi
+//  ^^ constant.numeric.base.coi
+//    ^^ constant.numeric.value.coi
+//       ^^^^ meta.number.integer.hexadecimal.coi
+//       ^^ constant.numeric.base.coi
+//         ^^ constant.numeric.value.coi
+//            ^^^^^^ meta.number.integer.hexadecimal.coi
+//            ^^ constant.numeric.base.coi
+//              ^^^^ constant.numeric.value.coi
+
     // single-line strings
 
     "string \""

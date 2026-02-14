@@ -816,6 +816,16 @@ contexts:
       scope: constant.language.boolean.true.coi
 
   numbers:
+    - match: (0[bB])([01]*)
+      scope: meta.number.integer.binary.coi
+      captures:
+        1: constant.numeric.base.coi
+        2: constant.numeric.value.coi
+    - match: (0[xX])(\h*)
+      scope: meta.number.integer.hexadecimal.coi
+      captures:
+        1: constant.numeric.base.coi
+        2: constant.numeric.value.coi
     - match: \d+\.\d*
       scope: meta.number.float.decimal.coi constant.numeric.value.coi
     - match: \d+
