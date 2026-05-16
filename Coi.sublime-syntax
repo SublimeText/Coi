@@ -959,6 +959,12 @@ contexts:
     - match: '{{variable_name}}(?=(?:\[.*\])?\.)'
       scope: variable.other.object.coi
       push: variable-subscript
+    - match: (({{variable_name}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.coi
+        2: variable.function.coi
+        3: meta.function-call.arguments.coi punctuation.section.arguments.begin.coi
+      set: function-argument-list-body
     - match: '{{variable_name}}'
       scope: variable.other.member.coi
       set: variable-subscript

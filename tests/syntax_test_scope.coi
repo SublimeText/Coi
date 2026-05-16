@@ -998,6 +998,13 @@ listen {
 //                             ^ meta.function.coi
 //                              ^^ meta.function.body.coi meta.block.coi
 //                              ^ punctuation.section.block.begin.coi
+        timer.run();
+//      ^^^^^ variable.other.object.coi
+//           ^ punctuation.accessor.dot.coi
+//            ^^^ meta.function-call.identifier.coi variable.function.coi
+//               ^^ meta.function-call.arguments.coi
+//               ^ punctuation.section.arguments.begin.coi
+//                ^ punctuation.section.arguments.end.coi
     }
 //^^^ meta.event.body.coi meta.block.coi meta.function.body.coi meta.block.coi
 //  ^ punctuation.section.block.end.coi
