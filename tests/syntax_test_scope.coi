@@ -702,6 +702,53 @@ def funcName(string arg, int[] count = 10): string {  }
 //                                                 ^ punctuation.section.block.begin.coi
 //                                                    ^ punctuation.section.block.end.coi
 
+def run() : void {
+    def localHandler(string) : void = &handleMessage;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.body.coi meta.block.coi
+//  ^^^^ meta.function.coi
+//  ^^^ keyword.declaration.function.coi
+//      ^^^^^^^^^^^^ meta.function.identifier.coi entity.name.function.coi
+//                  ^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//                  ^ punctuation.section.group.begin.coi
+//                   ^^^^^^ storage.type.coi
+//                         ^ punctuation.section.group.end.coi
+//                          ^^ meta.function.coi
+//                           ^ punctuation.separator.return-type
+//                            ^^^^^^ meta.function.return-type.coi
+//                             ^^^^ storage.type.coi
+//                                  ^ keyword.operator.assignment.coi
+//                                    ^ keyword.operator.bitwise.coi
+//                                     ^^^^^^^^^^^^^ variable.other.coi
+//                                                  ^ punctuation.terminator.statement.coi
+    localHandler("hello");
+}
+
+pub def onEvent(def handler(string) : void) : void {
+//^ storage.modifier.coi
+//  ^^^^ meta.function.coi
+//  ^^^ keyword.declaration.function.coi
+//      ^^^^^^^ meta.function.identifier.coi entity.name.function.coi
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//             ^ punctuation.section.group.begin.coi
+//              ^^^ storage.type.function.coi
+//                  ^^^^^^^ variable.parameter.coi
+//                         ^^^^^^^^ meta.group.coi
+//                         ^ punctuation.section.group.begin.coi
+//                          ^^^^^^ storage.type.coi
+//                                ^ punctuation.section.group.end.coi
+//                                  ^ punctuation.separator.return-type
+//                                    ^^^^ storage.type.coi
+//                                        ^ punctuation.section.group.end.coi
+//                                         ^^ meta.function.coi
+//                                          ^ punctuation.separator.return-type
+//                                           ^^^^^^ meta.function.return-type.coi
+//                                            ^^^^ storage.type.coi
+//                                                 ^^ meta.function.body.coi meta.block.coi
+//                                                 ^ punctuation.section.block.begin.coi
+    eventHandler = handler;
+}
+// <- meta.function.body.coi meta.block.coi punctuation.section.block.end.coi
+
 def first<T>(T[] items) : T {
 //^^ meta.function.coi
 //^ keyword.declaration.function.coi
