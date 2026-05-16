@@ -139,7 +139,7 @@
 //                                  ^ meta.number.float.integer.coi constant.numeric.value.coi
 //                                   ^ punctuation.section.subscript.end.coi
 //                                    ^ punctuation.accessor.dot.coi
-//                                     ^^^^^ variable.other.coi
+//                                     ^^^^^ variable.other.member.coi
 //                                          ^ punctuation.section.interpolation.end.coi
 //                                           ^ string.quoted.double.coi punctuation.definition.string.end.coi
 
@@ -301,7 +301,7 @@
 //          ^^ meta.number.float.integer.coi constant.numeric.value.coi
 //            ^ punctuation.section.subscript.end.coi
 //             ^ punctuation.accessor.dot.coi
-//              ^^^^ variable.other.coi
+//              ^^^^ variable.other.member.coi
 //                  ^^^ meta.subscript.coi
 //                  ^ punctuation.section.subscript.begin.coi
 //                   ^ meta.number.float.integer.coi constant.numeric.value.coi
@@ -955,6 +955,55 @@ tick(float dt) { x += dt * 200; }
 //                            ^ punctuation.terminator.statement.coi
 //                              ^ punctuation.section.block.end.coi
 
+/// [ SIGNAL DEFINITIONS ] ////////////////////////////////////////////////////
+
+signal tick(int seconds);
+//^^^^^ meta.signal.coi
+//^^^^ keyword.control.signal.coi
+//     ^^^^ meta.signal.identifier.coi entity.name.function.signal.coi
+//         ^^^^^^^^^^^^^ meta.signal.parameters.coi meta.group.coi
+//         ^ punctuation.section.group.begin.coi
+//          ^^^ storage.type.coi
+//              ^^^^^^^ variable.parameter.coi
+//                     ^ punctuation.section.group.end.coi
+//                      ^ punctuation.terminator.statement.coi
+
+emit tick(seconds);
+//^^ keyword.control.flow.emit.coi
+//   ^^^^ meta.function-call.identifier.coi variable.function.signal.coi
+//       ^^^^^^^^^ meta.function-call.arguments.coi
+//       ^ punctuation.section.arguments.begin.coi
+//        ^^^^^^^ variable.other.coi
+//               ^ punctuation.section.arguments.end.coi
+//                ^ punctuation.terminator.statement.coi
+
+listen {
+// <- meta.event.coi keyword.control.event.coi
+//^^^^^ meta.event.coi
+//^^^^ keyword.control.event.coi
+//     ^^ meta.event.body.coi meta.block.coi
+//     ^ punctuation.section.block.begin.coi
+    timer.tick => (int seconds) {
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.event.body.coi meta.block.coi
+//  ^^^^^ variable.other.object.coi
+//       ^ punctuation.accessor.dot.coi
+//        ^^^^ variable.other.member.coi
+//             ^^ keyword.operator.arrow.coi
+//               ^ meta.function.coi
+//                ^^^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//                ^ punctuation.section.group.begin.coi
+//                 ^^^ storage.type.coi
+//                     ^^^^^^^ variable.parameter.coi
+//                            ^ punctuation.section.group.end.coi
+//                             ^ meta.function.coi
+//                              ^^ meta.function.body.coi meta.block.coi
+//                              ^ punctuation.section.block.begin.coi
+    }
+//^^^ meta.event.body.coi meta.block.coi meta.function.body.coi meta.block.coi
+//  ^ punctuation.section.block.end.coi
+}
+// <- meta.event.body.coi meta.block.coi punctuation.section.block.end.coi
+
 /// [ STYLE BLOCKS ] //////////////////////////////////////////////////////////
 
 style
@@ -1132,7 +1181,7 @@ view {
 //                           ^^^^^^^ source.coi.embedded.coi
 //                           ^^^^ variable.other.object.coi
 //                               ^ punctuation.accessor.dot.coi
-//                                ^^ variable.other.coi
+//                                ^^ variable.other.member.coi
 //                                  ^ punctuation.section.interpolation.end.coi
 //                                   ^ punctuation.definition.tag.end.html
          <{todo} />

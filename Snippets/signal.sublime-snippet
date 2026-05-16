@@ -1,0 +1,6 @@
+<snippet>
+	<content><![CDATA[signal ${1:signalName}(${2:${3:int} ${4:arg}});]]></content>
+	<tabTrigger>signal</tabTrigger>
+	<scope>source.coi - (meta.function.body | comment | string | source), source.coi meta.signal.coi</scope>
+	<description>signal definition</description>
+</snippet>

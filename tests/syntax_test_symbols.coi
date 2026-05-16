@@ -14,6 +14,9 @@ component MyComponent {
 //      @@@ definition
     }
 
+    signal signalName(int arg);
+//         @@@@@@@@@@ definition
+
     def my_function(int arg) : MyType {
 //      @@@@@@@@@@@ definition
 //                             @@@@@@ reference
@@ -31,6 +34,9 @@ component MyComponent {
 //          @@@@@@@@@@@ reference
 //                      @@@@@@ reference
 //                              @@@ reference
+
+            emit signalName();
+//               @@@@@@@@@@ reference
         }
     }
 

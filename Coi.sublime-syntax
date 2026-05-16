@@ -24,6 +24,7 @@ contexts:
     - include: computed-definitions
     - include: enum-definitions
     - include: event-definitions
+    - include: signal-definitions
     - include: function-definitions
     - include: module-definitions
     - include: router-definitions
@@ -260,7 +261,7 @@ contexts:
 ###[ EVENT DEFINITIONS ]#######################################################
 
   event-definitions:
-    - match: (?:init|mount|prop|tick)\b
+    - match: (?:init|listen|mount|prop|tick)\b
       scope: meta.event.coi keyword.control.event.coi
       push: event-parameter-list
 
@@ -471,6 +472,37 @@ contexts:
     - include: operators
     - include: strings
 
+###[ SIGNAL DEFINITIONS ]#######################################################
+
+  signal-definitions:
+    - match: signal\b
+      scope: meta.signal.coi keyword.control.signal.coi
+      push: signal-name
+
+  signal-name:
+    - meta_content_scope: meta.signal.coi
+    - match: '{{identifier}}'
+      scope: meta.signal.identifier.coi entity.name.function.signal.coi
+      set: signal-parameter-list
+    - include: signal-parameter-list
+
+  signal-parameter-list:
+    - meta_content_scope: meta.signal.coi
+    - match: \(
+      scope: punctuation.section.group.begin.coi
+      set:
+        - signal-parameter-list-body
+        - function-parameter-name
+        - function-parameter-type
+    - include: else-pop
+
+  signal-parameter-list-body:
+    - meta_scope: meta.signal.parameters.coi meta.group.coi
+    - match: \)
+      scope: punctuation.section.group.end.coi
+      pop: 1
+    - include: function-parameter-list-content
+
 ###[ STYLE DEFINITIONS ]#######################################################
 
   style-definitions:
@@ -642,11 +674,23 @@ contexts:
     - match: while\b
       scope: keyword.control.loop.while.coi
     # flow
+    - match: emit\b
+      scope: keyword.control.flow.emit.coi
+      push: emit-signal-name
     - match: return\b
       scope: keyword.control.flow.return.coi
     # other
     - match: (?:key|route|struct)\b
       scope: keyword.other.coi
+
+  emit-signal-name:
+    - match: (({{identifier}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.coi
+        2: variable.function.signal.coi
+        3: meta.function-call.arguments.coi punctuation.section.arguments.begin.coi
+      set: function-argument-list-body
+    - include: else-pop
 
 ###[ INTERPOLATIONS ]##########################################################
 
@@ -738,7 +782,7 @@ contexts:
 ###[ FUNCTION CALLS ]##########################################################
 
   function-calls:
-    - match: (((?!{{reserved}}){{variable_name}})\s*)(\()
+    - match: (({{identifier}})\s*)(\()
       captures:
         1: meta.function-call.identifier.coi
         2: variable.function.coi
@@ -785,6 +829,9 @@ contexts:
       scope: keyword.operator.comparison.coi
     - match: =>
       scope: keyword.operator.arrow.coi
+      push:
+        - function-block
+        - function-parameter-list
     - match: =
       scope: keyword.operator.assignment.coi
     - match: :=
@@ -899,10 +946,23 @@ contexts:
   variables:
     - match: '{{variable_name}}(?=(?:\[.*\])?\.)'
       scope: variable.other.object.coi
-      push: variable-subscript
+      push:
+        - qualified-variables
+        - variable-subscript
     - match: '{{variable_name}}'
       scope: variable.other.coi
       push: variable-subscript
+
+  qualified-variables:
+    - match: \.
+      scope: punctuation.accessor.dot.coi
+    - match: '{{variable_name}}(?=(?:\[.*\])?\.)'
+      scope: variable.other.object.coi
+      push: variable-subscript
+    - match: '{{variable_name}}'
+      scope: variable.other.member.coi
+      set: variable-subscript
+    - include: else-pop
 
   variable-subscript:
     - match: \[
@@ -934,9 +994,9 @@ variables:
   constant: |-
     (?x: false | true )\b
   keyword: |-
-    (?x: def | view | return | if | else | for | while | computed | tick | init
+    (?x: def | view | return | if | else | for | while | computed | init
     | mount | app | import | struct | style | global | in | root | extends
-    | enum | key | pod | router | route )\b
+    | enum | key | pod | router | route | signal | emit )\b
   modifier: |-
     (?x: mut | pub | shared )\b
   type: |-
