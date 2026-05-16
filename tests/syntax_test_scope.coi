@@ -702,6 +702,85 @@ def funcName(string arg, int[] count = 10): string {  }
 //                                                 ^ punctuation.section.block.begin.coi
 //                                                    ^ punctuation.section.block.end.coi
 
+def first<T>(T[] items) : T {
+//^^ meta.function.coi
+//^ keyword.declaration.function.coi
+//  ^^^^^ meta.function.identifier.coi entity.name.function.coi
+//       ^^^ meta.function.coi meta.generic.coi
+//       ^ punctuation.defintition.generic.begin.coi
+//        ^ variable.parameter.type.coi
+//         ^ punctuation.defintition.generic.end.coi
+//          ^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^ punctuation.section.group.begin.coi
+//           ^ support.type.coi
+//            ^^ meta.dimension.coi
+//            ^ punctuation.section.dimension.begin.coi
+//             ^ punctuation.section.dimension.end.coi
+//               ^^^^^ variable.parameter.coi
+//                    ^ punctuation.section.group.end.coi
+//                     ^^ meta.function.coi
+//                      ^ punctuation.separator.return-type
+//                       ^^^ meta.function.return-type.coi
+//                        ^ support.type.coi
+//                          ^^ meta.function.body.coi meta.block.coi
+//                          ^ punctuation.section.block.begin.coi
+    return items[0];
+//^^^^^^^^^^^^^^^^^^^ meta.function.body.coi meta.block.coi
+//  ^^^^^^ keyword.control.flow.return.coi
+//         ^^^^^ variable.other.coi
+//              ^^^ meta.subscript.coi
+//              ^ punctuation.section.subscript.begin.coi
+//               ^ meta.number.float.integer.coi constant.numeric.value.coi
+//                ^ punctuation.section.subscript.end.coi
+//                 ^ punctuation.terminator.statement.coi
+}
+// <- meta.function.body.coi meta.block.coi punctuation.section.block.end.coi
+
+def clamp<T>(T val, T lo, T hi) : T {
+//^^ meta.function.coi
+//^ keyword.declaration.function.coi
+//  ^^^^^ meta.function.identifier.coi entity.name.function.coi
+//       ^^^ meta.function.coi meta.generic.coi
+//       ^ punctuation.defintition.generic.begin.coi
+//        ^ variable.parameter.type.coi
+//         ^ punctuation.defintition.generic.end.coi
+//          ^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coi meta.group.coi
+//          ^ punctuation.section.group.begin.coi
+//           ^ support.type.coi
+//             ^^^ variable.parameter.coi
+//                ^ punctuation.separator.sequence.coi
+//                  ^ support.type.coi
+//                    ^^ variable.parameter.coi
+//                      ^ punctuation.separator.sequence.coi
+//                        ^ support.type.coi
+//                          ^^ variable.parameter.coi
+//                            ^ punctuation.section.group.end.coi
+//                             ^^ meta.function.coi
+//                              ^ punctuation.separator.return-type
+//                               ^^^ meta.function.return-type.coi
+//                                ^ support.type.coi
+//                                  ^^ meta.function.body.coi meta.block.coi
+//                                  ^ punctuation.section.block.begin.coi
+    return val < lo ? lo : val > hi ? hi : val;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.body.coi meta.block.coi
+//  ^^^^^^ keyword.control.flow.return.coi
+//         ^^^ variable.other.coi
+//             ^ keyword.operator.comparison.coi
+//               ^^ variable.other.coi
+//                  ^ keyword.operator.ternary.coi
+//                    ^^ variable.other.coi
+//                       ^ keyword.operator.ternary.coi
+//                         ^^^ variable.other.coi
+//                             ^ keyword.operator.comparison.coi
+//                               ^^ variable.other.coi
+//                                  ^ keyword.operator.ternary.coi
+//                                    ^^ variable.other.coi
+//                                       ^ keyword.operator.ternary.coi
+//                                         ^^^ variable.other.coi
+//                                            ^ punctuation.terminator.statement.coi
+}
+// <- meta.function.body.coi meta.block.coi punctuation.section.block.end.coi
+
 /// [ MODULE DEFINITIONS ]/////////////////////////////////////////////////////
 
 module
@@ -794,6 +873,60 @@ pod MyStruct { int attr1, attr2; MyStruct attr3; }
 //                                        ^^^^^ meta.declaration.identifier.coi variable.other.coi
 //                                             ^ punctuation.terminator.statement.coi
 //                                               ^ punctuation.section.block.end.coi
+
+pod Result<T> {
+//^^ meta.struct.coi
+//^ keyword.declaration.struct.coi
+//  ^^^^^^ meta.struct.identifier.coi entity.name.struct.coi
+//        ^^^ meta.struct.parameter.coi meta.generic.coi
+//        ^ punctuation.defintition.generic.begin.coi
+//         ^ variable.parameter.struct.coi
+//          ^ punctuation.defintition.generic.end.coi
+//           ^ meta.struct.coi
+//            ^^ meta.struct.body.coi meta.block.coi
+//            ^ punctuation.section.block.begin.coi
+    bool ok;
+//^^^^^^^^^^^ meta.struct.body.coi meta.block.coi
+//  ^^^^^ meta.declaration.coi
+//  ^^^^ storage.type.coi
+//       ^^ meta.declaration.identifier.coi variable.other.coi
+//         ^ punctuation.terminator.statement.coi
+    T value;
+//^^^^^^^^^^^ meta.struct.body.coi meta.block.coi
+//  ^^ meta.declaration.coi
+//  ^ support.type.coi
+//    ^^^^^ meta.declaration.identifier.coi variable.other.coi
+//         ^ punctuation.terminator.statement.coi
+}
+// <- meta.struct.body.coi meta.block.coi punctuation.section.block.end.coi
+
+pod Pair<A, B> {
+//^^ meta.struct.coi
+//^ keyword.declaration.struct.coi
+//  ^^^^ meta.struct.identifier.coi entity.name.struct.coi
+//      ^^^^^^ meta.struct.parameter.coi meta.generic.coi
+//      ^ punctuation.defintition.generic.begin.coi
+//       ^ variable.parameter.struct.coi
+//        ^ punctuation.separator.sequence.coi
+//          ^ variable.parameter.struct.coi
+//           ^ punctuation.defintition.generic.end.coi
+//            ^ meta.struct.coi
+//             ^^ meta.struct.body.coi meta.block.coi
+//             ^ punctuation.section.block.begin.coi
+    A first;
+//^^^^^^^^^^^ meta.struct.body.coi meta.block.coi
+//  ^^ meta.declaration.coi
+//  ^ support.type.coi
+//    ^^^^^ meta.declaration.identifier.coi variable.other.coi
+//         ^ punctuation.terminator.statement.coi
+    B second;
+//^^^^^^^^^^^^ meta.struct.body.coi meta.block.coi
+//  ^^ meta.declaration.coi
+//  ^ support.type.coi
+//    ^^^^^^ meta.declaration.identifier.coi variable.other.coi
+//          ^ punctuation.terminator.statement.coi
+}
+// <- meta.struct.body.coi meta.block.coi punctuation.section.block.end.coi
 
 /// [ TYPE DEFINITIONS ] //////////////////////////////////////////////////////
 

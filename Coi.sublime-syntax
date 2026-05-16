@@ -307,8 +307,26 @@ contexts:
     - meta_content_scope: meta.function.coi
     - match: '{{identifier}}'
       scope: meta.function.identifier.coi entity.name.function.coi
-      set: function-parameter-list
+      set: function-type-parameter
+    - include: function-type-parameter
+
+  function-type-parameter:
+    - meta_content_scope: meta.function.coi
+    - match: \<
+      scope: punctuation.defintition.generic.begin.coi
+      set: function-type-parameter-body
     - include: function-parameter-list
+
+  function-type-parameter-body:
+    - meta_scope: meta.function.coi meta.generic.coi
+    - match: \>
+      scope: punctuation.defintition.generic.end.coi
+      set: function-parameter-list
+    - match: ','
+      scope: punctuation.separator.sequence.coi
+    - match: '{{identifier}}'
+      scope: variable.parameter.type.coi
+    - include: else-pop
 
   function-parameter-list:
     - meta_content_scope: meta.function.coi
